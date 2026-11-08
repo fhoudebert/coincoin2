@@ -18,6 +18,8 @@ Ouvrir `index.html` dans un navigateur : tout fonctionne en local, sans serveur 
   le calculateur et la page d'identification (« Quels parents ? »), et par
   `origines.html?v=jaune-pois`.
 - `aide.html` : page « Comprendre la génétique » pour débutants (notions, ordre de lecture, exemples, vocabulaire anglais).
+- `genetique.png` : icône d'origine (1254 px) ; `icone.png` (en-tête des pages, 96 px,
+  coins transparents), `favicon-32.png` et `apple-touch-icon.png` en sont tirées.
 - `style.css` : styles communs aux deux pages.
 - `donnees.js` : loci, allèles (du plus dominant au plus récessif) et variétés de référence.
   C'est le seul fichier à modifier pour corriger un génotype ou ajouter une variété.

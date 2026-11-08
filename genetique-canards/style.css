@@ -107,7 +107,14 @@ section.aide p { color: var(--encre-douce); }
 .pourquoi li { margin: .25rem 0; }
 .pourquoi code, .aide-page code { font-family: inherit; font-weight: 600; color: var(--vert); }
 .note-var { font-size: .85rem; color: var(--encre-douce); margin-top: .3rem; }
-nav.haut { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
+nav.haut { display: flex; justify-content: space-between; align-items: center; gap: .5rem 1rem; flex-wrap: wrap; margin-bottom: .4rem; }
+h1.titre { display: flex; align-items: center; gap: .8rem; margin: 0; }
+a.logo { flex: none; display: block; line-height: 0; border-radius: 12px; }
+a.logo img { width: 48px; height: 48px; display: block; }
+@media (max-width: 760px) {
+  h1.titre { font-size: 1.6rem; gap: .6rem; }
+  a.logo img { width: 40px; height: 40px; }
+}
 nav.haut a, .aide-page a { color: var(--miroir); }
 .aide-page section { max-width: 75ch; margin-bottom: 2.2rem; }
 .aide-page h2 { margin-top: 0; }
