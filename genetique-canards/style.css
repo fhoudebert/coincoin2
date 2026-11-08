@@ -1,0 +1,123 @@
+:root {
+  --fond: #e9f1ed;          /* œuf de cane */
+  --surface: #f7faf8;
+  --encre: #1e2a27;
+  --encre-douce: #51625c;
+  --vert: #2d5d4f;          /* tête de colvert */
+  --miroir: #2f4f9e;        /* miroir de l'aile */
+  --miroir-2: #5b3f9a;
+  --bec: #c97d12;           /* bec et pattes */
+  --trait: #c9d6d0;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "URW Palladio L", P052, Georgia, serif;
+  --sans: Cantarell, "Noto Sans", "Segoe UI", system-ui, sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fond: #17221e; --surface: #1f2d28; --encre: #e2ebe6; --encre-douce: #a3b4ad;
+    --vert: #8fc2ae; --miroir: #8aa2ec; --miroir-2: #b39ae6; --bec: #e5a74a; --trait: #33463f;
+    color-scheme: dark;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--fond); color: var(--encre);
+  font: 16px/1.5 var(--sans);
+}
+main { max-width: 1100px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+h1, h2, h3 { font-family: var(--serif); color: var(--vert); font-weight: 600; line-height: 1.2; }
+h1 { font-size: 2.1rem; margin: 0 0 .4rem; }
+h2 { font-size: 1.45rem; margin: 0 0 .8rem; }
+h3 { font-size: 1.15rem; margin: 0; }
+.intro { max-width: 62ch; color: var(--encre-douce); margin: 0 0 2rem; }
+sup { font-size: .7em; line-height: 0; }
+:focus-visible { outline: 3px solid var(--bec); outline-offset: 2px; }
+
+/* Parents */
+.parents { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 1.25rem; align-items: start; }
+.croix { font-family: var(--serif); font-size: 2.6rem; color: var(--encre-douce); align-self: center; }
+.parent { background: var(--surface); border: 1px solid var(--trait); border-radius: 6px; padding: 1.1rem; }
+.parent-tete { display: flex; gap: 1rem; align-items: flex-start; }
+.parent-tete > div { flex: 1; min-width: 0; }
+.parent-tete select { width: 100%; }
+/* Les coureurs sont debout : cadre en hauteur, image jamais rognée (contain). */
+.photo { height: 240px; width: auto; max-width: 170px; flex: none; border-radius: 4px; object-fit: contain; object-position: center bottom; }
+div.photo { width: 120px; height: 240px; background: var(--fond); }
+.photo-vide { display: grid; place-items: center; font-family: var(--serif); font-size: 2.4rem; color: var(--trait); border: 1px dashed var(--trait); }
+label.choix { display: block; font-size: .9rem; color: var(--encre-douce); margin: .5rem 0 .25rem; }
+select { font: inherit; color: var(--encre); background: var(--fond); border: 1px solid var(--trait); border-radius: 4px; padding: .35rem .45rem; max-width: 100%; }
+.pheno { font-family: var(--serif); font-size: 1.2rem; margin: .6rem 0 .1rem; }
+.geno { font-size: .88rem; color: var(--encre-douce); overflow-wrap: anywhere; }
+.statut { font-size: .82rem; color: var(--bec); margin-top: .3rem; }
+details.avance { margin-top: .9rem; border-top: 1px solid var(--trait); padding-top: .6rem; }
+details summary { cursor: pointer; color: var(--miroir); }
+.loci { display: grid; grid-template-columns: auto 1fr; gap: .35rem .75rem; align-items: center; margin-top: .7rem; font-size: .92rem; }
+.loci span { color: var(--encre-douce); }
+
+/* Le miroir de l'aile */
+.miroir {
+  height: 22px; margin: 2.2rem 0; border-radius: 2px;
+  background:
+    linear-gradient(var(--surface), var(--surface)) top / 100% 3px no-repeat,
+    linear-gradient(var(--encre), var(--encre)) 0 3px / 100% 2px no-repeat,
+    linear-gradient(var(--encre), var(--encre)) 0 calc(100% - 3px) / 100% 2px no-repeat,
+    linear-gradient(var(--surface), var(--surface)) bottom / 100% 3px no-repeat,
+    linear-gradient(100deg, var(--miroir), var(--miroir-2) 45%, var(--miroir) 70%, var(--vert));
+}
+
+/* Résultats */
+.resultats { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1.5rem; }
+.colonne h2 small { font-family: var(--sans); font-size: .9rem; color: var(--encre-douce); font-weight: 400; }
+ol.groupes { list-style: none; margin: 0; padding: 0; }
+.groupe { padding: .7rem 0; border-bottom: 1px solid var(--trait); }
+.ligne { display: grid; grid-template-columns: 4.6rem 1fr 64px; gap: .75rem; align-items: center; }
+.pct { font-family: var(--serif); font-size: 1.35rem; font-variant-numeric: tabular-nums; }
+.frac { display: block; font-family: var(--sans); font-size: .78rem; color: var(--encre-douce); }
+.nom { font-weight: 600; }
+.var { display: block; font-size: .88rem; color: var(--vert); }
+.barre { height: 5px; margin-top: .35rem; background: var(--trait); border-radius: 3px; overflow: hidden; }
+.barre i { display: block; height: 100%; background: var(--miroir); }
+.vignette { height: 88px; width: auto; max-width: 64px; justify-self: center; object-fit: contain; object-position: center bottom; border-radius: 3px; }
+div.vignette { width: 48px; }
+.groupe details { margin: .4rem 0 0 5.35rem; font-size: .88rem; }
+table { border-collapse: collapse; width: 100%; margin-top: .4rem; }
+td, th { text-align: left; padding: .3rem .4rem; border-top: 1px solid var(--trait); vertical-align: top; }
+th { font-weight: 600; color: var(--encre-douce); }
+td.n { font-variant-numeric: tabular-nums; white-space: nowrap; }
+button.prendre { font: inherit; font-size: .82rem; color: var(--miroir); background: none; border: 1px solid var(--trait); border-radius: 4px; padding: .15rem .45rem; cursor: pointer; white-space: nowrap; }
+button.prendre:hover { border-color: var(--miroir); }
+.note { font-size: .82rem; color: var(--encre-douce); }
+
+/* Aide */
+section.aide { margin-top: 3rem; max-width: 75ch; }
+section.aide table { font-size: .92rem; }
+section.aide p { color: var(--encre-douce); }
+
+@media (max-width: 760px) {
+  .parents, .resultats { grid-template-columns: 1fr; }
+  .croix { justify-self: center; font-size: 2rem; }
+  .photo { height: 180px; max-width: 120px; }
+  div.photo { width: 88px; height: 180px; }
+  .groupe details { margin-left: 0; }
+}
+
+/* Explications */
+.pourquoi { margin-top: .9rem; border-top: 1px solid var(--trait); padding-top: .6rem; }
+.pourquoi ul { margin: .5rem 0 0; padding-left: 1.1rem; font-size: .9rem; }
+.pourquoi li { margin: .25rem 0; }
+.pourquoi code, .aide-page code { font-family: inherit; font-weight: 600; color: var(--vert); }
+.note-var { font-size: .85rem; color: var(--encre-douce); margin-top: .3rem; }
+nav.haut { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
+nav.haut a, .aide-page a { color: var(--miroir); }
+.aide-page section { max-width: 75ch; margin-bottom: 2.2rem; }
+.aide-page h2 { margin-top: 0; }
+.aide-page dl { margin: 0; }
+.aide-page dt { font-weight: 600; margin-top: .8rem; }
+.aide-page dd { margin: .15rem 0 0 0; color: var(--encre-douce); }
+.aide-page .exemple { background: var(--surface); border: 1px solid var(--trait); border-radius: 6px; padding: .8rem 1rem; margin: .8rem 0; }
+.aide-page .exemple p { margin: .3rem 0; color: var(--encre); }
+.aide-page table { font-size: .9rem; }
+.aide-page .large { overflow-x: auto; max-width: none; }
+.ordre { counter-reset: n; list-style: none; padding: 0; }
+.ordre li { counter-increment: n; margin: .45rem 0; padding-left: 2rem; position: relative; }
+.ordre li::before { content: counter(n); position: absolute; left: 0; top: 0; width: 1.4rem; height: 1.4rem; border-radius: 50%; background: var(--miroir); color: var(--surface); font-size: .8rem; display: grid; place-items: center; }

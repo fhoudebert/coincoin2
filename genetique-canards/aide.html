@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Comprendre la génétique des couleurs — coureurs indiens</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="aide-page">
+  <nav class="haut"><h1>Comprendre la génétique</h1><span><a href="index.html">Calculateur</a> · <a href="identifier.html">Identifier un canard</a></span></nav>
+  <p class="intro">Ce qu’il faut savoir pour lire les génotypes du calculateur et prévoir les couleurs des canetons, sans être généticien.</p>
+
+  <section>
+    <h2>Les notions de base</h2>
+    <dl>
+      <dt>Gène et locus</dt>
+      <dd>Un gène commande un caractère, par exemple « uni ou pas ». Son emplacement sur le chromosome s’appelle le locus. Le calculateur suit dix gènes, notés M, Li, E, Bl, C, B, R, D, Bu et Cr.</dd>
+      <dt>Allèle</dt>
+      <dd>Une version d’un gène. Le gène E existe en deux versions : <code>E</code> (uni) et <code>e<sup>+</sup></code> (pas d’uni). Le « + » désigne toujours la version du canard sauvage.</dd>
+      <dt>Deux copies par gène</dt>
+      <dd>Chaque canard a deux copies de chaque gène, une venue du père, une de la mère, et il en transmet une au hasard à chaque caneton. On écrit les deux copies séparées par une barre : <code>E/e<sup>+</sup></code>.</dd>
+      <dt>Homozygote, hétérozygote</dt>
+      <dd>Deux copies identiques (<code>E/E</code>) : homozygote, le canard transmet toujours la même. Deux copies différentes (<code>E/e<sup>+</sup></code>) : hétérozygote, il transmet l’une ou l’autre, une fois sur deux.</dd>
+      <dt>Dominant, récessif</dt>
+      <dd>Un allèle dominant se voit dès qu’il est présent une fois : <code>E/e<sup>+</sup></code> est uni. Un allèle récessif ne se voit qu’en double : il faut <code>c/c</code> pour un canard blanc.</dd>
+      <dt>Dominance incomplète</dt>
+      <dd>Une copie donne un résultat intermédiaire, deux copies un effet plus fort. Exemple : une dose de bleu donne un canard bleu, deux doses un splash presque blanc.</dd>
+      <dt>Porteur</dt>
+      <dd>Un canard qui a une copie d’un allèle récessif sans le montrer, comme un sauvage <code>C<sup>+</sup>/c</code>. Il le transmet à la moitié de ses canetons. C’est l’origine des « surprises » à l’éclosion.</dd>
+      <dt>Lié au sexe</dt>
+      <dd>Les gènes D (brun) et Bu (chamois) sont sur le chromosome Z. Le mâle a deux Z, la cane un seul (plus un W vide). Une cane n’a donc qu’une copie, notée <code>d/–</code> : elle montre toujours ce qu’elle porte, et ne peut pas être porteuse cachée.</dd>
+      <dt>Masquage</dt>
+      <dd>Certains gènes cachent l’effet des autres : le blanc cache tout, l’uni cache le dessin sauvage. Les gènes cachés sont quand même transmis.</dd>
+    </dl>
+  </section>
+
+  <section>
+    <h2>Comment la couleur se construit</h2>
+    <p>Le calculateur lit le génotype dans cet ordre. À chaque étape, la première question qui répond « oui » l’emporte sur les suivantes.</p>
+    <ol class="ordre">
+      <li><strong>Blanc (C) ?</strong> Avec <code>c/c</code>, le canard est blanc à bec orange. Tout le reste est caché.</li>
+      <li><strong>Uni (E) ?</strong> Avec au moins un <code>E</code>, le canard est uni (noir à la base). Le dessin sauvage (M et Li) est caché.</li>
+      <li><strong>Sinon, dessin sauvage.</strong> M fixe le dessin : sauvage (colvert), sauvage foncé (dusky) sans traits sur la tête, ou restreint (Appleyard). Li fixe le fond : phase sombre, truité (plus clair) ou argenté (presque blanc).</li>
+      <li><strong>Dilutions.</strong> Bl éclaircit en bleu (une ou deux doses), d transforme le noir en marron, bu en chamois. Elles se cumulent (tableau ci-dessous).</li>
+      <li><strong>Marques blanches.</strong> R ajoute le panaché des coureurs, b/b une bavette.</li>
+      <li><strong>Huppe.</strong> Cr ajoute un pompon sur la tête, indépendamment de la couleur.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Les dilutions en un tableau</h2>
+    <div class="large">
+    <table>
+      <thead><tr><th></th><th>Uni, sans brun</th><th>Uni, avec brun (d)</th><th>Sauvage, sans brun</th><th>Sauvage, avec brun (d)</th></tr></thead>
+      <tbody>
+        <tr><th>Pas de bleu</th><td>Noir</td><td>Marron (chocolat)</td><td>Sauvage, truité…</td><td>Brun sauvage foncé, Fawn…</td></tr>
+        <tr><th>Une dose (Bl/bl<sup>+</sup>)</th><td>Bleu</td><td>Lilas</td><td>Truité bleu…</td><td>Truité lilas, bleu dusky…</td></tr>
+        <tr><th>Deux doses (Bl/Bl)</th><td>Splash</td><td>Lavande</td><td>Bleu-fauve truité…</td><td>Jaune pois, abricot dusky…</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p>Pour les couleurs non homologuées, le nom de variété reprend le nom calculé, dans l’ordre motif (sauvage, sauvage foncé), phase (truité, intermédiaire truité-argenté, argenté), puis dilutions (bleu, bleu-fauve, brun) ; le nom d’usage suit entre parenthèses. Le nom final dépend aussi du dessin (sauvage, dusky, truité…). Les combinaisons bleu + brun sur base sauvage portent des noms qui varient selon les éleveurs et les pays : c’est le génotype qui fait foi.</p>
+  </section>
+
+  <section>
+    <h2>Les dix gènes</h2>
+    <div class="large"><table id="table-loci"></table></div>
+  </section>
+
+  <section>
+    <h2>Exemples pas à pas</h2>
+
+    <div class="exemple">
+      <h3>Deux canards bleus</h3>
+      <p>Chaque parent est <code>Bl/bl<sup>+</sup></code> et transmet Bl une fois sur deux.</p>
+      <p>Résultat : ¼ noirs (<code>bl<sup>+</sup>/bl<sup>+</sup></code>), ½ bleus, ¼ splash (<code>Bl/Bl</code>).</p>
+      <p>À retenir : le bleu ne se fixe pas. Pour 100 % de bleus, on accouple un noir et un splash.</p>
+    </div>
+
+    <div class="exemple">
+      <h3>Mâle marron × cane noire</h3>
+      <p>Le père est <code>d/d</code> : il donne d à tous ses canetons. La mère, <code>D<sup>+</sup>/–</code>, donne son Z (avec D<sup>+</sup>) à ses fils et son W (sans gène D) à ses filles.</p>
+      <p>Résultat : fils noirs porteurs de brun (<code>D<sup>+</sup>/d</code>), filles marron (<code>d/–</code>).</p>
+      <p>À retenir : avec un gène lié au sexe, le sens du croisement compte. Le croisement inverse (mâle noir × cane marron) ne donne que des noirs, et les fils sont porteurs.</p>
+    </div>
+
+    <div class="exemple">
+      <h3>Un noir qui cache son jeu</h3>
+      <p>Un noir <code>E/e<sup>+</sup></code> accouplé à un argenté (<code>e<sup>+</sup>/e<sup>+</sup></code>) transmet l’uni une fois sur deux.</p>
+      <p>Résultat : moitié noirs, moitié non unis. La couleur des non unis dépend du dessin sauvage caché sous le noir du parent, qu’on ne voit pas.</p>
+      <p>À retenir : accoupler un canard à couleur dominante avec un canard à couleurs récessives révèle ce qu’il cache.</p>
+    </div>
+
+    <div class="exemple">
+      <h3>Deux sauvages qui donnent un blanc</h3>
+      <p>Les deux parents sont <code>C<sup>+</sup>/c</code> : sauvages, porteurs du blanc.</p>
+      <p>Résultat : ¼ blancs, ¾ sauvages, dont deux tiers porteurs.</p>
+    </div>
+
+    <div class="exemple">
+      <h3>Deux huppés</h3>
+      <p>Chaque parent est <code>Cr/cr<sup>+</sup></code>.</p>
+      <p>Résultat : ¼ <code>Cr/Cr</code> (malformations, souvent non viables), ½ huppés, ¼ sans huppe. On accouple toujours un huppé avec un non huppé.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Toutes les variétés du calculateur</h2>
+    <div class="large"><table id="table-varietes"></table></div>
+  </section>
+
+  <section>
+    <h2>Vocabulaire français – anglais</h2>
+    <p>Utile pour les sources britanniques et américaines, souvent plus détaillées.</p>
+    <div class="large">
+    <table>
+      <tbody>
+        <tr><td>canard (mâle) / cane / caneton</td><td>drake / duck / duckling</td></tr>
+        <tr><td>sauvage (colvert)</td><td>mallard</td></tr>
+        <tr><td>sauvage foncé (motif md/md)</td><td>dusky ; dark dusky en phase sombre, light dusky en phase claire</td></tr>
+        <tr><td>sauvage foncé brun</td><td>khaki, brown dark dusky</td></tr>
+        <tr><td>sauvage foncé truité brun</td><td>fawn, brown light dusky</td></tr>
+        <tr><td>sauvage restreint</td><td>restricted mallard (Appleyard)</td></tr>
+        <tr><td>phase sombre / phase claire (truité)</td><td>dark phase / light phase (trout)</td></tr>
+        <tr><td>argenté, arlequin (lih/lih)</td><td>harlequin, snowy, abacot, silver (UK)</td></tr>
+        <tr><td>intermédiaire truité-argenté (li/lih)</td><td>spotted ; light-harlequin phase</td></tr>
+        <tr><td>truité brun</td><td>brown trout, golden trout</td></tr>
+        <tr><td>uni (noir étendu)</td><td>extended black</td></tr>
+        <tr><td>dilution bleue / splash</td><td>blue dilution / splash</td></tr>
+        <tr><td>dilution brune, marron</td><td>brown dilution, chocolate</td></tr>
+        <tr><td>chamois</td><td>buff (gène différent du splash)</td></tr>
+        <tr><td>lilas / lavande</td><td>lilac / lavender</td></tr>
+        <tr><td>panaché</td><td>runner pattern, pied ; pied khaki = panaché brun sauvage foncé</td></tr>
+        <tr><td>crayonné, taches « calico » (sur un uni)</td><td>pencilling, calico patches</td></tr>
+        <tr><td>bavette</td><td>bib</td></tr>
+        <tr><td>huppe</td><td>crest</td></tr>
+        <tr><td>porteur</td><td>carrier, « split »</td></tr>
+        <tr><td>miroir de l’aile</td><td>speculum</td></tr>
+        <tr><td>traits sur la tête</td><td>eye stripes</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Sources</h2>
+    <p>Mike et Chris Ashton, <em>Colour Breeding in Domestic Ducks</em> ; Indian Runner Duck Club (<a href="https://runnerduck.net/standard-colours.php">runnerduck.net</a>) ; <a href="https://www.plumesdepyrene.fr/le-coureur-indien/les-couleurs/">Plumes de Pyrène</a> ; <a href="https://domainelesbardons.jimdofree.com/le-coin-des-canards/un-peu-de-g%C3%A9n%C3%A9tique/">Domaine des Bardons</a> ; <a href="https://www.duskyfeatherswaterfowl.com/gene-index">Dusky Feathers Waterfowl</a> (combinaisons dusky et intermédiaires) ; calculateur de <a href="https://www.kippenjungle.nl/kruisingEend.html">kippenjungle.nl</a>. Quand les sources divergent, la variété est marquée « à confirmer » et la divergence est expliquée.</p>
+  </section>
+</main>
+
+<script src="donnees.js"></script>
+<script src="moteur.js"></script>
+<script>
+'use strict';
+const M = window.MOTEUR_CANARD;
+const { LOCI, VARIETES } = window.DONNEES_CANARD;
+function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+function fmtAllele(a) {
+  if (a.endsWith('+')) return a.slice(0, -1) + '<sup>+</sup>';
+  if (a === 'MR') return 'M<sup>R</sup>';
+  if (a === 'md') return 'm<sup>d</sup>';
+  if (a === 'lih') return 'li<sup>h</sup>';
+  return a;
+}
+function fmtGeno(g) {
+  const p = LOCI.filter(l => !g[l.id].every(a => a.endsWith('+')))
+    .map(l => g[l.id].length === 1 ? fmtAllele(g[l.id][0]) + '/–' : g[l.id].map(fmtAllele).join('/'));
+  return p.length ? p.join(', ') : 'tout sauvage';
+}
+
+document.getElementById('table-loci').innerHTML =
+  '<thead><tr><th>Gène</th><th>Allèles (du plus fort au plus faible)</th><th>Effet</th></tr></thead><tbody>' +
+  LOCI.map(l => `<tr><td>${esc(l.nom)} (${l.id})${l.z ? '<br><span class="note">lié au sexe</span>' : ''}${l.incomplet ? '<br><span class="note">dominance incomplète</span>' : ''}</td>
+    <td>${l.alleles.map(fmtAllele).join(' &gt; ')}</td><td>${esc(l.aide)}</td></tr>`).join('') + '</tbody>';
+
+document.getElementById('table-varietes').innerHTML =
+  '<thead><tr><th>Variété</th><th>Anglais</th><th>Génotype (mâle / cane)</th><th>Remarque</th></tr></thead><tbody>' +
+  VARIETES.map(v => {
+    const gm = M.lireGeno(v.geno, 'M'), gf = M.lireGeno(v.geno, 'F');
+    const gtxt = fmtGeno(gm) === fmtGeno(gf) ? fmtGeno(gm) : fmtGeno(gm) + '<br>' + fmtGeno(gf);
+    const rem = [v.homologuee ? 'Homologuée en France.' : '', v.statut === 'verifier' ? 'À confirmer.' : '', v.note || ''].filter(Boolean).join(' ');
+    return `<tr><td>${esc(v.nom)}</td><td>${esc(v.en || '')}</td><td>${gtxt}</td><td>${esc(rem)}</td></tr>`;
+  }).join('') + '</tbody>';
+</script>
+</body>
+</html>
