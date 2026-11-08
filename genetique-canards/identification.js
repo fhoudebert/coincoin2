@@ -71,6 +71,7 @@
     'appleyard':         { teinte: T(['gris', 'clair'], ['fauve', 'clair']), tete: 'verte', collier: 'oui', oeil: 'oui', miroir: 'bleu' },
     'sauvage-blanc':     { teinte: T('gris', 'tachete'), tete: 'verte', miroir: 'bleu' },
     // Combinaisons dusky et intermédiaires (Dusky Feathers Waterfowl)
+    'fonce':                         { teinte: T('gris', ['tachete', 'brun']), tete: 'verte', collier: ['non', 'oui'], oeil: 'non', miroir: ['grisbleu', 'absent', 'bleu'] },
     'truite-brun':                   { teinte: T(['gris', 'fauve'], ['fauve', 'tachete']), tete: ['brune', 'verte'], collier: 'oui', oeil: 'oui', miroir: 'brun' },
     'intermediaire-bleu-brun':       { teinte: T(['clair', 'fauve'], ['fauve', 'tachete', 'clair']), tete: ['grisbleu', 'brune'], collier: 'oui', oeil: ['oui', 'non'], miroir: ['grisbleu', 'brun'] },
     'fonce-truite-bleu':             { teinte: T(['gris', 'bleu'], ['fauve', 'tachete', 'bleu']), tete: 'grisbleu', collier: ['oui', 'non'], oeil: 'non', miroir: ['grisbleu', 'absent'] },

@@ -98,18 +98,19 @@ extérieur, sur leur fond d'origine. Usage privé uniquement.
 | Blanc | blanc-canard.jpg ◆ | blanc-cane.jpg ◆ |  |
 | Panaché brun sauvage foncé (fawn & white) | fauve-blanc-canard.jpg ◆ | fauve-blanc-cane.jpg ◆ |  |
 | Sauvage truité brun | truite-brun-canard.jpg ✎ | truite-brun-cane.jpg ● | tenue en main, ailes ouvertes |
-| Sauvage truité bleu | truite-bleu-canard.jpg ✎ | truite-bleu-cane.jpg ✎ |  |
+| Sauvage truité bleu | truite-bleu-canard.jpg ✎ | truite-bleu-cane.jpg | filigrane Dusky Feathers, petite ; couleur beige à confirmer |
 | Sauvage truité bleu brun (truité lilas) | truite-lilas-canard.jpg ✎ | truite-lilas-cane.jpg ● | tenue en main, ailes ouvertes |
 | Sauvage intermédiaire truité-argenté bleu brun | intermediaire-bleu-brun-canard.jpg ✎ | intermediaire-bleu-brun-cane.jpg ● |  |
 | Arlequin (argenté sur base sauvage) | arlequin-canard.jpg ● | arlequin-cane.jpg ● | groupe de mâles; groupe de canes |
 | Sauvage restreint (Appleyard) | appleyard-canard.jpg ✎ | appleyard-cane.jpg ✎ |  |
 | Sauvage panaché | sauvage-blanc-canard.jpg ✎ | sauvage-blanc-cane.jpg ✎ |  |
+| Sauvage foncé (dusky) | fonce-canard.jpg ● | fonce-cane.jpg ✎ |  |
 | Sauvage foncé brun (khaki) | brun-fonce-canard.jpg ✎ | brun-fonce-cane.jpg ● | deux canes |
-| Sauvage foncé truité (truité dusky) | truite-dusky-canard.jpg ✎ | truite-dusky-cane.jpg ✎ |  |
+| Sauvage foncé truité (truité dusky) | truite-dusky-canard.jpg ✎ | truite-dusky-cane.jpg | filigrane Plumes de Pyrène (copie interdite), petite |
 | Sauvage foncé truité bleu | fonce-truite-bleu-canard.jpg ✎ | fonce-truite-bleu-cane.jpg ● | tenue en main |
 | Sauvage foncé truité brun (Fawn) | fauve-canard.jpg ● | fauve-cane.jpg | oie à l’arrière-plan |
 | Sauvage foncé truité bleu brun (bleu dusky) | bleu-dusky-canard.jpg | bleu-dusky-cane.jpg ✎ | photo de groupe |
-| Sauvage foncé truité bleu-fauve brun (abricot dusky) | abricot-canard.jpg ✎ | abricot-dusky.jpg | très petite, sexe à confirmer |
+| Sauvage foncé truité bleu-fauve brun (abricot dusky) | abricot-canard.jpg | abricot-cane.jpg | groupe, très petite (143 px); filigrane FeatherSite |
 | Sauvage foncé intermédiaire truité-argenté | fonce-intermediaire-canard.jpg ● | fonce-intermediaire-cane.jpg ● | tenue en main |
 | Sauvage foncé intermédiaire truité-argenté bleu | fonce-intermediaire-bleu-canard.jpg ● | fonce-intermediaire-bleu-cane.jpg ● |  |
 | Sauvage foncé intermédiaire truité-argenté brun | fonce-intermediaire-brun-canard.jpg ✎ | fonce-intermediaire-brun-cane.jpg ● |  |
@@ -121,6 +122,18 @@ extérieur, sur leur fond d'origine. Usage privé uniquement.
 
 Les photos tenues en main ou penchées restent petites même au bon format : l'oiseau
 est plus large que haut. Une photo debout, de profil, serait préférable.
+
+### Rangement du 8 novembre 2026
+
+- 10 copies exactes des photos Dusky Feathers, restées sous leur nom d'origine, supprimées.
+- Photos réelles rattachées à leur variété à la place de l'image d'attente :
+  abricot-dusky-canard.jpg → abricot-canard.jpg, sauvage-truiteedusky-cane.jpg →
+  truite-dusky-cane.jpg, truite-bleue-cane.png → truite-bleu-cane.jpg (converti en JPEG).
+- abricot-dusky-cane.jpg : photo collée dans une image d'attente ; cadre retiré →
+  abricot-cane.jpg.
+- « Sauvage fonce-canard.jpg » → fonce-canard.jpg, pour la nouvelle variété « Sauvage
+  foncé (dusky) » ; le doublon _canard-sauvage-foncé-dusky-1-189x300.jpg (filigrane Plumes
+  de Pyrène, 189 px) est supprimé.
 
 ### Images supprimées
 

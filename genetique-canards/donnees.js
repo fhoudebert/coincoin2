@@ -102,6 +102,9 @@
       img: { M: 'sauvage-blanc-canard.jpg', F: 'sauvage-blanc-cane.jpg' }, statut: 'ok' },
 
     // Motif sauvage foncé (dusky, md/md)
+    { id: 'fonce', nom: 'Sauvage foncé (dusky)', en: 'Dusky, dark dusky', geno: 'M:md/md',
+      img: { M: 'fonce-canard.jpg', F: 'fonce-cane.jpg' }, statut: 'ok',
+      note: 'Motif de base des couleurs « dusky » : cane sans traits sur la tête, miroir sans reflets, collier du mâle réduit ou absent. Sous le noir uni, il donne un noir plus profond.' },
     { id: 'brun-fonce', nom: 'Sauvage foncé brun (khaki)', en: 'Khaki, brown dark dusky', geno: 'M:md/md,D:d/d',
       img: { M: 'brun-fonce-canard.jpg', F: 'brun-fonce-cane.jpg' }, statut: 'ok',
       note: 'Appelé aussi « brun sauvage foncé ». Avec le panaché R/R, il donne le panaché brun sauvage foncé homologué.' },
@@ -116,7 +119,7 @@
       img: { M: 'bleu-dusky-canard.jpg', F: 'bleu-dusky-cane.jpg' }, statut: 'verifier',
       note: 'Fawn + une dose de bleu (IRDC, Domaine des Bardons). Plumes de Pyrène appelle cette combinaison « abricot », et Dusky Feathers appelle « blue light dusky » la version sans brun (sauvage foncé truité bleu).' },
     { id: 'abricot', nom: 'Sauvage foncé truité bleu-fauve brun (abricot dusky)', en: 'Apricot dusky', geno: 'M:md/md,Li:li/li,Bl:Bl/Bl,D:d/d',
-      img: { M: 'abricot-canard.jpg', F: 'abricot-dusky.jpg' }, statut: 'verifier',
+      img: { M: 'abricot-canard.jpg', F: 'abricot-cane.jpg' }, statut: 'verifier',
       note: 'Fawn + deux doses de bleu (IRDC, Domaine des Bardons). Pour Plumes de Pyrène, l’abricot n’a qu’une dose de bleu.' },
     { id: 'fonce-intermediaire', nom: 'Sauvage foncé intermédiaire truité-argenté', en: 'Spotted dusky', geno: 'M:md/md,Li:li/lih',
       img: { M: 'fonce-intermediaire-canard.jpg', F: 'fonce-intermediaire-cane.jpg' }, statut: 'ok',
