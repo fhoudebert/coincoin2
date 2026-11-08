@@ -4,7 +4,7 @@
 Lister les photos encore à faire (images d'attente présentes dans img/) :
     python3 outils/photos_a_faire.py
 
-Créer une image d'attente :
+Créer une image d'attente (refusé si le fichier contient déjà une photo) :
     python3 outils/photos_a_faire.py --creer img/jaune-pois-cane.jpg "Jaune pois" cane
 
 Une image d'attente porte le marqueur PHOTO_A_FAIRE dans son commentaire JPEG.
@@ -120,7 +120,12 @@ def lister(dossier):
 
 if __name__ == '__main__':
     a = sys.argv[1:]
-    if a and a[0] == '--creer' and len(a) == 4:
+    if a and a[0] == '--creer' and len(a) in (4, 5):
+        # Ne jamais écraser une vraie photo (y compris une photo collée dans une
+        # image d'attente, qui a perdu le marqueur), sauf avec --forcer.
+        if os.path.exists(a[1]) and not est_attente(a[1]) and '--forcer' not in a[4:]:
+            print('refusé :', a[1], 'contient déjà une photo (ajouter --forcer pour remplacer)')
+            sys.exit(2)
         creer(a[1], a[2], a[3])
         print('créée :', a[1])
     elif not a:

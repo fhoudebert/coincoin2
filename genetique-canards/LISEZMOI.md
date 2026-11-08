@@ -83,7 +83,7 @@ Les 16 photos marquées ● ont été ajoutées le 8 novembre 2026 à partir des
 duskyfeatherswaterfowl.com (motifs dusky, mallard, panaché, blanc). Prises en
 extérieur, sur leur fond d'origine. Usage privé uniquement.
 
-### État des images (✎ = photo à faire, ◆ = Laufenten SV, ● = Dusky Feathers)
+### État des images (✎ = photo à faire, ◆ = Laufenten SV, ● = Dusky Feathers, ▲ = filigrane Plumes de Pyrène, non libre)
 
 | Variété | Canard | Cane | Remarque |
 |---|---|---|---|
@@ -91,7 +91,7 @@ extérieur, sur leur fond d'origine. Usage privé uniquement.
 | Truité | truite-canard.jpg ◆ | truite-cane.jpg ◆ |  |
 | Sauvage argenté | argente-canard.jpg ◆ | argente-cane.jpg ◆ |  |
 | Bleu-fauve truité (apricot trout) | bleu-fauve-truite-canard.jpg ◆ | bleu-fauve-truite-cane.jpg ◆ |  |
-| Jaune pois | jaune-pois-canard.jpg ✎ | jaune-pois-cane.jpg ✎ |  |
+| Jaune pois | jaune-pois-canard.jpg ▲ | jaune-pois-cane.jpg | couchée au nid |
 | Noir uni | noir-canard.jpg ◆ | noir-cane.jpg ◆ |  |
 | Bleu uni (Cumberland blue) | bleu-canard.jpg ◆ | bleu-cane.jpg ◆ |  |
 | Marron uni (chocolat) | chocolat-canard.jpg ◆ | chocolat-cane.jpg | cane penchée, à refaire |
@@ -102,11 +102,11 @@ extérieur, sur leur fond d'origine. Usage privé uniquement.
 | Sauvage truité bleu brun (truité lilas) | truite-lilas-canard.jpg ✎ | truite-lilas-cane.jpg ● | tenue en main, ailes ouvertes |
 | Sauvage intermédiaire truité-argenté bleu brun | intermediaire-bleu-brun-canard.jpg ✎ | intermediaire-bleu-brun-cane.jpg ● |  |
 | Arlequin (argenté sur base sauvage) | arlequin-canard.jpg ● | arlequin-cane.jpg ● | groupe de mâles; groupe de canes |
-| Sauvage restreint (Appleyard) | appleyard-canard.jpg ✎ | appleyard-cane.jpg ✎ |  |
-| Sauvage panaché | sauvage-blanc-canard.jpg ✎ | sauvage-blanc-cane.jpg ✎ |  |
+| Sauvage restreint (Appleyard) | appleyard-canard.jpg ✎ | appleyard-cane.jpg ▲ |  |
+| Sauvage panaché | sauvage-blanc-canard.jpg ▲ | sauvage-blanc-cane.jpg ✎ |  |
 | Sauvage foncé (dusky) | fonce-canard.jpg ● | fonce-cane.jpg ✎ |  |
-| Sauvage foncé brun (khaki) | brun-fonce-canard.jpg ✎ | brun-fonce-cane.jpg ● | deux canes |
-| Sauvage foncé truité (truité dusky) | truite-dusky-canard.jpg ✎ | truite-dusky-cane.jpg | filigrane Plumes de Pyrène (copie interdite), petite |
+| Sauvage foncé brun (khaki) | brun-fonce-canard.jpg ▲ | brun-fonce-cane.jpg ● | deux canes |
+| Sauvage foncé truité (truité dusky) | truite-dusky-canard.jpg ▲ | truite-dusky-cane.jpg ▲ |  |
 | Sauvage foncé truité bleu | fonce-truite-bleu-canard.jpg ✎ | fonce-truite-bleu-cane.jpg ● | tenue en main |
 | Sauvage foncé truité brun (Fawn) | fauve-canard.jpg ● | fauve-cane.jpg | oie à l’arrière-plan |
 | Sauvage foncé truité bleu brun (bleu dusky) | bleu-dusky-canard.jpg | bleu-dusky-cane.jpg ✎ | photo de groupe |
@@ -115,10 +115,10 @@ extérieur, sur leur fond d'origine. Usage privé uniquement.
 | Sauvage foncé intermédiaire truité-argenté bleu | fonce-intermediaire-bleu-canard.jpg ● | fonce-intermediaire-bleu-cane.jpg ● |  |
 | Sauvage foncé intermédiaire truité-argenté brun | fonce-intermediaire-brun-canard.jpg ✎ | fonce-intermediaire-brun-cane.jpg ● |  |
 | Sauvage foncé intermédiaire truité-argenté bleu brun | fonce-intermediaire-bleu-brun-canard.jpg ● | fonce-intermediaire-bleu-brun-cane.jpg ● |  |
-| Panaché américain (american fawn & white) | panache-americain-canard.jpg | panache-americain-cane.jpg ✎ | recadrée dans un tirage papier, à remplacer |
-| Splash | splash-canard.jpg ✎ | splash-cane.jpg ✎ |  |
-| Lilas uni | lilas-canard.jpg ✎ | lilas-cane.jpg ✎ |  |
-| Lavande uni | lavande-canard.jpg ✎ | lavande-cane.jpg ✎ |  |
+| Panaché américain (american fawn & white) | panache-americain-canard.jpg | panache-americain-cane.jpg | recadrée dans un tirage papier, à remplacer; groupe |
+| Splash | splash-canard.jpg ✎ | splash-cane.jpg ▲ |  |
+| Lilas uni | lilas-canard.jpg ✎ | lilas-cane.jpg ▲ | groupe |
+| Lavande uni | lavande-canard.jpg ▲ | lavande-cane.jpg ▲ | photo coupée à droite |
 
 Les photos tenues en main ou penchées restent petites même au bon format : l'oiseau
 est plus large que haut. Une photo debout, de profil, serait préférable.
@@ -134,6 +134,22 @@ est plus large que haut. Une photo debout, de profil, serait préférable.
 - « Sauvage fonce-canard.jpg » → fonce-canard.jpg, pour la nouvelle variété « Sauvage
   foncé (dusky) » ; le doublon _canard-sauvage-foncé-dusky-1-189x300.jpg (filigrane Plumes
   de Pyrène, 189 px) est supprimé.
+
+### Récupération du 8 novembre 2026 (soir)
+
+L'archive couleurs-dusky.zip contenait les 25 images d'attente régénérées ; décompressée
+par-dessus le dossier, elle a remplacé les images d'attente dans lesquelles une photo
+avait été collée. Ces 12 photos ont été récupérées dans img-avant/ (cadre d'attente
+retiré, format 1:2) : appleyard-cane, brun-fonce-canard, jaune-pois-canard,
+jaune-pois-cane, lavande-canard, lavande-cane, lilas-cane, panache-americain-cane,
+sauvage-blanc-canard, splash-cane, truite-dusky-canard, truite-dusky-cane.
+Pour éviter que cela se reproduise, `photos_a_faire.py --creer` refuse désormais
+d'écraser un fichier qui contient une photo, et les livraisons ne contiennent plus
+d'images d'attente pour des fichiers existants.
+
+Une seule image par génotype et par sexe : quand deux photos existaient pour la même
+place, la plus récente a été supprimée (doublon de sauvage foncé mâle ; la cane
+truitée dusky existait deux fois, même photo).
 
 ### Images supprimées
 
