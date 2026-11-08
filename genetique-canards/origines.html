@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Obtenir une variété — coureurs indiens</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.reglages { display: flex; flex-wrap: wrap; gap: 1rem 2rem; align-items: flex-end; background: var(--surface); border: 1px solid var(--trait); border-radius: 6px; padding: 1rem; }
+.reglages .cible { display: flex; gap: 1rem; align-items: flex-end; flex: 1 1 22rem; min-width: 0; }
+.reglages .cible > div { flex: 1; min-width: 0; }
+.reglages select { width: 100%; }
+.reglages .photo { height: 150px; max-width: 90px; }
+.reglages fieldset { border: 0; margin: 0; padding: 0; }
+.reglages legend { font-size: .9rem; color: var(--encre-douce); margin-bottom: .25rem; }
+.choix-q { display: flex; flex-wrap: wrap; gap: .35rem; }
+.choix-q label { cursor: pointer; }
+.choix-q input { position: absolute; opacity: 0; pointer-events: none; }
+.choix-q span { display: inline-block; padding: .25rem .6rem; border: 1px solid var(--trait); border-radius: 999px; font-size: .88rem; background: var(--fond); }
+.choix-q input:checked + span { background: var(--miroir); border-color: var(--miroir); color: var(--surface); }
+.choix-q input:focus-visible + span { outline: 3px solid var(--bec); outline-offset: 2px; }
+label.case { font-size: .92rem; display: flex; gap: .4rem; align-items: center; cursor: pointer; }
+.resume { margin: 1.4rem 0 .6rem; }
+.resume p { margin: .2rem 0; color: var(--encre-douce); }
+.resume .compte { font-family: var(--serif); font-size: 1.3rem; color: var(--vert); }
+ol.couples { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
+.couple { background: var(--surface); border: 1px solid var(--trait); border-radius: 6px; padding: .8rem 1rem; }
+.couple-tete { display: grid; grid-template-columns: auto 1fr auto 1fr; gap: .6rem; align-items: center; }
+.couple-tete img, .couple-tete .vide { height: 96px; width: 48px; object-fit: contain; object-position: center bottom; border-radius: 3px; }
+.couple-tete .vide { display: grid; place-items: center; color: var(--trait); border: 1px dashed var(--trait); font-family: var(--serif); }
+.couple-tete .x { grid-column: 1 / -1; display: none; }
+.parent-nom { font-weight: 600; }
+.parent-nom small { display: block; font-weight: 400; color: var(--encre-douce); font-size: .8rem; }
+.probas { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: .4rem 1.2rem; margin-top: .7rem; }
+.proba .lib { font-size: .85rem; color: var(--encre-douce); }
+.proba .val { font-family: var(--serif); font-size: 1.25rem; font-variant-numeric: tabular-nums; }
+.proba .val small { font-family: var(--sans); font-size: .78rem; color: var(--encre-douce); margin-left: .3rem; }
+.proba .nul { color: var(--encre-douce); font-size: .9rem; }
+.barre { height: 5px; margin-top: .2rem; background: var(--trait); border-radius: 3px; overflow: hidden; }
+.barre i { display: block; height: 100%; background: var(--miroir); }
+.couple details { margin-top: .6rem; font-size: .88rem; }
+.couple summary { cursor: pointer; color: var(--miroir); }
+.couple table { margin-top: .4rem; }
+.couple .liens { margin-top: .5rem; font-size: .85rem; display: flex; gap: 1rem; flex-wrap: wrap; }
+.couple .liens a, .resume a { color: var(--miroir); }
+.etiquette { display: inline-block; font-size: .75rem; padding: .05rem .45rem; border-radius: 999px; border: 1px solid var(--vert); color: var(--vert); margin-left: .4rem; vertical-align: middle; }
+button.btn { font: inherit; font-size: .9rem; color: var(--miroir); background: none; border: 1px solid var(--trait); border-radius: 4px; padding: .35rem .8rem; cursor: pointer; margin-top: 1rem; }
+@media (max-width: 760px) {
+  .couple-tete { grid-template-columns: auto 1fr; }
+  .reglages .photo { height: 110px; }
+}
+</style>
+</head>
+<body>
+<main>
+  <nav class="haut"><h1>Obtenir une variété</h1><span><a href="index.html">Calculateur</a> · <a href="identifier.html">Identifier un canard</a> · <a href="aide.html">Comprendre la génétique</a></span></nav>
+  <p class="intro">Choisissez la couleur que vous voulez obtenir : la page cherche, parmi toutes les variétés de la liste, les couples mâle × cane qui la donnent, du plus sûr au moins sûr. Les parents sont supposés de race pure, avec le génotype type de leur variété ; un parent porteur de gènes cachés peut donner d’autres résultats.</p>
+
+  <form class="reglages" id="reglages">
+    <div class="cible">
+      <div id="photo-cible"></div>
+      <div>
+        <label class="choix" for="cible">Variété à obtenir</label>
+        <select id="cible"></select>
+        <div class="geno" id="geno-cible"></div>
+      </div>
+    </div>
+    <fieldset>
+      <legend>Chez</legend>
+      <div class="choix-q">
+        <label><input type="radio" name="sexe" value="MF" checked><span>Fils et filles</span></label>
+        <label><input type="radio" name="sexe" value="F"><span>Filles</span></label>
+        <label><input type="radio" name="sexe" value="M"><span>Fils</span></label>
+      </div>
+    </fieldset>
+    <label class="case"><input type="checkbox" id="homologues"> Parents de couleurs homologuées seulement</label>
+  </form>
+
+  <section class="resume" id="resume" aria-live="polite"></section>
+  <ol class="couples" id="couples"></ol>
+  <button type="button" class="btn" id="plus" hidden>Afficher plus de couples</button>
+</main>
+
+<script src="donnees.js"></script>
+<script src="moteur.js"></script>
+<script>
+'use strict';
+const M = window.MOTEUR_CANARD;
+const { LOCI, VARIETES } = window.DONNEES_CANARD;
+const PAS = 12;
+let limite = PAS;
+let resultats = [];
+
+function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+function fmtAllele(a) {
+  if (a.endsWith('+')) return a.slice(0, -1) + '<sup>+</sup>';
+  if (a === 'MR') return 'M<sup>R</sup>';
+  if (a === 'md') return 'm<sup>d</sup>';
+  if (a === 'lih') return 'li<sup>h</sup>';
+  return a;
+}
+function fmtPaire(p) { return p.length === 1 ? fmtAllele(p[0]) + '/–' : p.map(fmtAllele).join('/'); }
+function fmtGeno(g) {
+  const p = LOCI.filter(l => !g[l.id].every(a => a.endsWith('+'))).map(l => fmtPaire(g[l.id]));
+  return p.length ? p.join(', ') : 'tout sauvage';
+}
+function fmtPct(p) {
+  const v = p * 100;
+  return (Number.isInteger(v) ? v : v.toFixed(v < 1 ? 2 : 1).replace('.', ',')) + ' %';
+}
+function img(v, sexe) {
+  const src = v.img[sexe] || v.img[sexe === 'M' ? 'F' : 'M'];
+  return src ? `<img src="img/${esc(src)}" alt="${esc(v.nom)}, ${sexe === 'M' ? 'mâle' : 'cane'}" loading="lazy">`
+             : '<span class="vide" aria-hidden="true">?</span>';
+}
+
+/* ---------- réglages ---------- */
+const sel = document.getElementById('cible');
+const opt = v => `<option value="${v.id}">${esc(v.nom)}</option>`;
+sel.innerHTML = `<optgroup label="Homologuées en France">${VARIETES.filter(v => v.homologuee).map(opt).join('')}</optgroup>`
+  + `<optgroup label="Autres couleurs">${VARIETES.filter(v => !v.homologuee).map(opt).join('')}</optgroup>`;
+try {
+  const v = new URLSearchParams(location.search).get('v');
+  if (VARIETES.some(x => x.id === v)) sel.value = v;
+} catch (e) { /* ignoré */ }
+
+document.getElementById('reglages').addEventListener('change', () => { limite = PAS; calculer(); });
+document.getElementById('plus').addEventListener('click', () => { limite += PAS; afficher(); });
+
+function sexesChoisis() {
+  const v = document.querySelector('input[name="sexe"]:checked').value;
+  return v === 'MF' ? ['M', 'F'] : [v];
+}
+
+/* ---------- détail d'un couple ---------- */
+// Pour chaque gène utile : génotypes des parents et répartition chez les jeunes.
+function detail(r, sexes, cibleGeno) {
+  const gp = M.lireGeno(r.pere.geno, 'M'), gm = M.lireGeno(r.mere.geno, 'F');
+  const lignes = [];
+  for (const l of LOCI) {
+    const utile = [gp, gm, cibleGeno.M, cibleGeno.F].some(g => !g[l.id].every(a => a.endsWith('+')));
+    if (!utile) continue;
+    const jeunes = sexes.map(s => {
+      const d = M.distribLocusId(l.id, gp, gm, s).sort((a, b) => b.p - a.p);
+      const t = d.map(x => `${fmtPaire(x.paire)} ${fmtPct(x.p)}`).join(', ');
+      return (sexes.length > 1 ? (s === 'M' ? 'fils : ' : 'filles : ') : '') + t;
+    }).join('<br>');
+    lignes.push(`<tr><td>${esc(l.nom)} (${l.id})</td><td>${fmtPaire(gp[l.id])}</td><td>${fmtPaire(gm[l.id])}</td><td>${jeunes}</td></tr>`);
+  }
+  return `<table><thead><tr><th>Gène</th><th>Mâle</th><th>Cane</th><th>Jeunes</th></tr></thead><tbody>${lignes.join('')}</tbody></table>`;
+}
+
+// Autres couleurs obtenues avec ce couple.
+function autres(r, sexes, nomCible) {
+  const gp = M.lireGeno(r.pere.geno, 'M'), gm = M.lireGeno(r.mere.geno, 'F');
+  return sexes.map(s => {
+    const res = M.resultat(gp, gm, s).filter(g => g.phenotype.nom !== nomCible[s]);
+    if (!res.length) return '';
+    const t = res.slice(0, 4).map(g => `${esc(g.variete ? g.variete.nom : g.phenotype.nom)} ${fmtPct(g.p)}`).join(' ; ');
+    return `<p>${sexes.length > 1 ? (s === 'M' ? 'Fils : ' : 'Filles : ') : ''}${t}${res.length > 4 ? ' ; …' : ''}</p>`;
+  }).join('');
+}
+
+/* ---------- calcul et affichage ---------- */
+let contexte = null;
+function calculer() {
+  const cible = VARIETES.find(v => v.id === sel.value);
+  const sexes = sexesChoisis();
+  const homol = document.getElementById('homologues').checked;
+  const parents = homol ? VARIETES.filter(v => v.homologuee) : VARIETES;
+  const cibleGeno = { M: M.lireGeno(cible.geno, 'M'), F: M.lireGeno(cible.geno, 'F') };
+  const nomCible = { M: M.phenotype(cibleGeno.M, 'M').nom, F: M.phenotype(cibleGeno.F, 'F').nom };
+  resultats = M.chercherCroisements(cible, parents, sexes);
+  contexte = { cible, sexes, cibleGeno, nomCible, homol };
+  document.getElementById('photo-cible').innerHTML = (() => {
+    const src = cible.img[sexes[sexes.length - 1]] || cible.img.M || cible.img.F;
+    return src ? `<img class="photo" src="img/${esc(src)}" alt="${esc(cible.nom)}">` : '<div class="photo photo-vide" aria-hidden="true">?</div>';
+  })();
+  document.getElementById('geno-cible').innerHTML = fmtGeno(cibleGeno.M) +
+    (fmtGeno(cibleGeno.M) !== fmtGeno(cibleGeno.F) ? ' (mâle) ; ' + fmtGeno(cibleGeno.F) + ' (cane)' : '');
+  try { history.replaceState(null, '', '?v=' + encodeURIComponent(cible.id)); } catch (e) { /* ignoré */ }
+  afficher();
+}
+
+function afficher() {
+  const { cible, sexes, cibleGeno, nomCible, homol } = contexte;
+  const surs = resultats.filter(r => r.score > 1 - 1e-9).length;
+  const sur = sexes.length > 1 ? 'chez tous les jeunes' : sexes[0] === 'M' ? 'chez tous les fils' : 'chez toutes les filles';
+  document.getElementById('resume').innerHTML = resultats.length
+    ? `<p class="compte">${resultats.length} couple${resultats.length > 1 ? 's' : ''} donne${resultats.length > 1 ? 'nt' : ''} « ${esc(cible.nom)} »</p>
+       <p>${surs ? `${surs} donne${surs > 1 ? 'nt' : ''} cette couleur ${sur}.` : `Aucun couple ne la donne ${sur} : elle s’obtient seulement en partie.`}</p>`
+    : `<p class="compte">Aucun couple de la liste ne donne « ${esc(cible.nom)} » en une génération</p>
+       <p>${homol ? 'Essayez sans la restriction aux couleurs homologuées, ou passez' : 'Il faut passer'} par une génération intermédiaire : croisez d’abord pour obtenir des jeunes porteurs, puis croisez ces jeunes entre eux (le <a href="index.html">calculateur</a> permet de le faire avec « Prendre comme mâle / cane »).</p>`;
+  const html = resultats.slice(0, limite).map(r => {
+    const probas = ['M', 'F'].filter(s => sexes.includes(s)).map(s => {
+      const p = r.p[s];
+      return `<div class="proba"><div class="lib">${s === 'M' ? 'Fils' : 'Filles'} « ${esc(cible.nom)} »</div>
+        ${p > 0 ? `<div class="val">${fmtPct(p)}<small>${M.fraction(p)}</small></div><div class="barre"><i style="width:${(p * 100).toFixed(1)}%"></i></div>`
+                : '<div class="nul">aucun</div>'}</div>`;
+    }).join('');
+    const memes = r.pere === r.mere && r.score > 1 - 1e-9 ? '<span class="etiquette">se reproduit fidèlement</span>' : '';
+    return `<li class="couple">
+      <div class="couple-tete">
+        ${img(r.pere, 'M')}<div class="parent-nom">${esc(r.pere.nom)}<small>mâle${r.pere.homologuee ? ' · homologuée' : ''}</small></div>
+        ${img(r.mere, 'F')}<div class="parent-nom">${esc(r.mere.nom)}<small>cane${r.mere.homologuee ? ' · homologuée' : ''}</small>${memes}</div>
+      </div>
+      <div class="probas">${probas}</div>
+      <details><summary>Ce que donne ce couple, gène par gène</summary>
+        ${detail(r, sexes, cibleGeno)}
+        <p><strong>Autres couleurs obtenues :</strong></p>${autres(r, sexes, nomCible) || '<p>aucune</p>'}
+      </details>
+      <div class="liens"><a href="index.html?M=${encodeURIComponent(r.pere.id)}&amp;F=${encodeURIComponent(r.mere.id)}">Ouvrir ce couple au calculateur</a></div>
+    </li>`;
+  }).join('');
+  document.getElementById('couples').innerHTML = html;
+  document.getElementById('plus').hidden = resultats.length <= limite;
+}
+
+calculer();
+</script>
+</body>
+</html>

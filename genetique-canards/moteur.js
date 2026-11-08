@@ -300,8 +300,42 @@
     return '';
   }
 
+
+  /* ---------- recherche des croisements qui donnent une variété ---------- */
+
+  // Distribution d'un locus chez les fils ou les filles, par identifiant.
+  function distribLocusId(id, pere, mere, sexe) {
+    return distribLocus(PAR_ID[id], pere, mere, sexe);
+  }
+
+  // Parmi les couples de variétés (mâle × cane), ceux qui donnent la couleur
+  // de la variété cible. Les parents sont pris avec le génotype type de leur
+  // variété. Renvoie [{ pere, mere, p: { M, F }, score }] trié par score.
+  function chercherCroisements(cible, parents, sexes) {
+    sexes = sexes && sexes.length ? sexes : ['M', 'F'];
+    const nomCible = {};
+    for (const s of sexes) nomCible[s] = phenotype(lireGeno(cible.geno, s), s).nom;
+    const genos = parents.map(v => ({ v, M: lireGeno(v.geno, 'M'), F: lireGeno(v.geno, 'F') }));
+    const res = [];
+    for (const pe of genos) for (const me of genos) {
+      const p = {};
+      let total = 0;
+      for (const s of sexes) {
+        p[s] = 0;
+        for (const x of croiser(pe.M, me.F, s)) if (phenotype(x.geno, s).nom === nomCible[s]) p[s] += x.p;
+        total += p[s];
+      }
+      if (total > 1e-12) res.push({ pere: pe.v, mere: me.v, p, score: total / sexes.length });
+    }
+    // À probabilité égale : parents homologués d'abord, puis couple de même variété.
+    const bonus = r => (r.pere.homologuee ? 2 : 0) + (r.mere.homologuee ? 2 : 0) + (r.pere === r.mere ? 1 : 0);
+    return res.sort((a, b) => b.score - a.score || bonus(b) - bonus(a) ||
+                    a.pere.nom.localeCompare(b.pere.nom) || a.mere.nom.localeCompare(b.mere.nom));
+  }
+
   const moteur = { LOCI, sauvage, lireGeno, ecrireGeno, normaliser, cle, croiser,
-                   phenotype, porteurs, expliquer, varieteDe, resultat, fraction };
+                   phenotype, porteurs, expliquer, varieteDe, resultat, fraction,
+                   distribLocusId, chercherCroisements };
   g.MOTEUR_CANARD = moteur;
   if (typeof module !== 'undefined' && module.exports) module.exports = moteur;
 })(typeof globalThis !== 'undefined' ? globalThis : this);

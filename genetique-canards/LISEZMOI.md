@@ -11,6 +11,12 @@ Ouvrir `index.html` dans un navigateur : tout fonctionne en local, sans serveur 
   variété accepte plusieurs réponses (`['oui', 'non']`) plutôt que d'être écartée à tort.
   Une nouvelle variété ajoutée à `donnees.js` doit y recevoir ses critères (vérifié par
   `node tests.js`).
+- `origines.html` : page « Obtenir une variété » — pour une couleur choisie (chez les fils,
+  les filles ou les deux), liste les couples mâle × cane de variétés connues qui la
+  donnent, du plus sûr au moins sûr, avec le détail gène par gène et les autres couleurs
+  obtenues. Option : parents de couleurs homologuées seulement. Accessible aussi depuis
+  le calculateur et la page d'identification (« Quels parents ? »), et par
+  `origines.html?v=jaune-pois`.
 - `aide.html` : page « Comprendre la génétique » pour débutants (notions, ordre de lecture, exemples, vocabulaire anglais).
 - `style.css` : styles communs aux deux pages.
 - `donnees.js` : loci, allèles (du plus dominant au plus récessif) et variétés de référence.

@@ -128,5 +128,23 @@ verifie('fraction 3/16', M.fraction(0.1875) === '3/16');
   verifie('question cane ignorée pour un mâle', ids({ sexe: 'M', oeil: 'oui' }).includes('fauve'));
 }
 
+// 14. Recherche des croisements qui donnent une variété.
+{
+  const V = id => D.VARIETES.find(v => v.id === id);
+  const trouve = (cible, pere, mere, sexes) => M.chercherCroisements(V(cible), D.VARIETES, sexes)
+    .find(r => r.pere.id === pere && r.mere.id === mere);
+  const jp = trouve('jaune-pois', 'jaune-pois', 'bleu-fauve-truite', ['F']);
+  verifie('jaune pois : mâle jaune pois × cane bleu-fauve truité', jp && proche(jp.p.F, 1), jp && jp.p);
+  const bl = trouve('bleu', 'noir', 'splash');
+  verifie('bleu : noir × splash 100 %', bl && proche(bl.score, 1), bl && bl.p);
+  const prem = M.chercherCroisements(V('noir'), D.VARIETES)[0];
+  verifie('noir : premier résultat 100 %', proche(prem.score, 1) && prem.pere.homologuee && prem.mere.homologuee, prem);
+  const r = M.chercherCroisements(V('truite'), D.VARIETES);
+  verifie('tri décroissant', r.every((x, i) => !i || r[i - 1].score >= x.score - 1e-12));
+  verifie('aucun couple à 0 %', r.every(x => x.score > 0));
+  const dl = M.distribLocusId('D', M.lireGeno('D:d/d', 'M'), M.lireGeno('', 'F'), 'F');
+  verifie('locus lié au sexe : filles d/–', dl.length === 1 && dl[0].paire.join() === 'd', dl);
+}
+
 console.log(ok + ' tests réussis, ' + ko + ' échec(s).');
 process.exit(ko ? 1 : 0);

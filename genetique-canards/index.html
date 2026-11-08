@@ -8,7 +8,7 @@
 </head>
 <body>
 <main>
-  <nav class="haut"><h1>Croisements de coureurs indiens</h1><span><a href="identifier.html">Identifier un canard</a> · <a href="aide.html">Comprendre la génétique</a></span></nav>
+  <nav class="haut"><h1>Croisements de coureurs indiens</h1><span><a href="identifier.html">Identifier un canard</a> · <a href="origines.html">Obtenir une variété</a> · <a href="aide.html">Comprendre la génétique</a></span></nav>
   <p class="intro">Choisissez la variété du mâle et de la cane pour voir la couleur des canetons, séparément pour les fils et les filles. Pour un parent qui porte un gène caché, précisez son génotype.</p>
 
   <div class="parents">
@@ -108,7 +108,8 @@ function rendreParent(sexe) {
             <select data-locus="${l.id}" aria-label="${esc(l.nom)}" title="${esc(l.aide)}">${opts}</select>`;
   }).join('');
   const statut = vChoisie && STATUTS[vChoisie.statut] ? `<div class="statut">${STATUTS[vChoisie.statut]}</div>` : '';
-  const homol = v && v.homologuee ? '<div class="geno">Couleur homologuée en France</div>' : '';
+  const homol = (v && v.homologuee ? '<div class="geno">Couleur homologuée en France</div>' : '')
+    + (v ? `<div class="geno"><a href="origines.html?v=${encodeURIComponent(v.id)}">Quels parents donnent cette couleur ?</a></div>` : '');
   const anglais = v && v.en ? `<div class="geno">En anglais : ${esc(v.en)}</div>` : '';
   const note = vChoisie && vChoisie.note ? `<div class="note-var">${esc(vChoisie.note)}</div>` : '';
   const explications = M.expliquer(e.geno, sexe).map(x =>
