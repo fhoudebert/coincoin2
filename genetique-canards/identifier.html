@@ -7,6 +7,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="stylesheet" href="style.css">
+<link rel="alternate" hreflang="en" href="en/identifier.html">
 <style>
 .ident { display: grid; grid-template-columns: minmax(0, 22rem) minmax(0, 1fr); gap: 2rem; align-items: start; }
 .questions { position: sticky; top: 1rem; max-height: calc(100vh - 2rem); overflow-y: auto; padding-right: .3rem; }
@@ -48,7 +49,7 @@ details.presque .carte { opacity: .8; }
 </head>
 <body>
 <main>
-  <nav class="haut"><h1 class="titre"><a class="logo" href="index.html" title="Accueil : croiser"><img src="icone.png" alt="" width="48" height="48"></a>Identifier un coureur indien</h1><span><a href="index.html">Croiser</a> · <a href="origines.html">Obtenir une variété</a> · <a href="aide.html">Comprendre la génétique</a></span></nav>
+  <nav class="haut"><h1 class="titre"><a class="logo" href="index.html" title="Accueil : croiser"><img src="icone.png" alt="" width="48" height="48"></a>Identifier un coureur indien</h1><span><a href="index.html">Croiser</a> · <a href="origines.html">Obtenir une variété</a> · <a href="aide.html">Comprendre la génétique</a> · <a href="en/identifier.html" hreflang="en" lang="en" data-langue>English</a></span></nav>
   <p class="intro">Répondez aux questions que vous pouvez, dans l’ordre que vous voulez : toutes sont facultatives. Chaque réponse écarte les variétés qui ne correspondent pas. Les canetons et les jeunes en mue ressemblent mal aux adultes : observez de préférence un oiseau adulte.</p>
 
   <div class="ident">
@@ -60,83 +61,7 @@ details.presque .carte { opacity: .8; }
 <script src="donnees.js"></script>
 <script src="moteur.js"></script>
 <script src="identification.js"></script>
-<script>
-'use strict';
-const M = window.MOTEUR_CANARD;
-const { VARIETES } = window.DONNEES_CANARD;
-const I = window.IDENTIFICATION_CANARD;
-const rep = {};
-
-function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
-const nomQ = Object.fromEntries(I.QUESTIONS.map(q => [q.id, q]));
-const libelle = (qid, val) => (nomQ[qid].options.find(o => o[0] === val) || [, val])[1];
-
-/* ---------- questions ---------- */
-const form = document.getElementById('questions');
-form.innerHTML = I.QUESTIONS.map(q => `
-  <fieldset data-q="${q.id}">
-    <legend>${esc(q.texte)}${q.sexe ? ` <span class="q-auto">(${q.sexe === 'M' ? 'mâle' : 'cane'})</span>` : ''}</legend>
-    ${q.aide ? `<p class="q-aide">${esc(q.aide)}</p>` : ''}
-    <div class="choix-q">
-      <label><input type="radio" name="${q.id}" value="" checked><span class="passe">Je ne sais pas</span></label>
-      ${q.options.map(([v, t]) => `<label><input type="radio" name="${q.id}" value="${v}"><span>${esc(t)}</span></label>`).join('')}
-    </div>
-  </fieldset>`).join('') +
-  '<div class="actions"><button type="reset" class="btn">Tout effacer</button></div>';
-
-form.addEventListener('change', ev => {
-  if (ev.target.name) { rep[ev.target.name] = ev.target.value; maj(); }
-});
-form.addEventListener('reset', () => setTimeout(() => {
-  for (const k of Object.keys(rep)) delete rep[k];
-  maj();
-}));
-
-/* ---------- résultats ---------- */
-function carte(v, ecarts) {
-  const s = rep.sexe;
-  const sexes = s ? [s] : ['M', 'F'];
-  const imgs = sexes.map(x => v.img[x] || v.img[x === 'M' ? 'F' : 'M']).filter(Boolean);
-  const uniques = [...new Set(imgs)];
-  const htmlImgs = uniques.map((src, i) =>
-    `<img src="img/${esc(src)}" alt="${esc(v.nom)}${uniques.length > 1 ? (i ? ', cane' : ', mâle') : ''}" loading="lazy">`).join('');
-  const lien = x => `<a href="index.html?${x}=${encodeURIComponent(v.id)}">${x === 'M' ? 'Comme mâle' : 'Comme cane'} au calculateur</a>`;
-  return `<li class="carte">
-    <div class="imgs${uniques.length > 1 ? ' deux' : ''}">${htmlImgs}</div>
-    <h3>${esc(v.nom)}</h3>
-    ${v.en ? `<span class="en">${esc(v.en)}</span>` : ''}
-    ${v.homologuee ? '<span class="hom">Homologuée en France</span>' : ''}
-    ${ecarts.length ? `<span class="ecart">Diffère sur : ${ecarts.map(q => esc(nomQ[q].texte.replace(/ \?$/, '').toLowerCase())).join(' ; ')}</span>` : ''}
-    <div class="liens">${sexes.map(lien).join('')}<a href="origines.html?v=${encodeURIComponent(v.id)}">Quels parents ?</a></div>
-  </li>`;
-}
-
-function maj() {
-  // Questions réservées à l'autre sexe : grisées.
-  document.querySelectorAll('fieldset[data-q]').forEach(f => {
-    const q = nomQ[f.dataset.q];
-    f.classList.toggle('inutile', !!(q.sexe && rep.sexe && q.sexe !== rep.sexe));
-  });
-  const classees = VARIETES.map(v => ({ v, ecarts: I.contradictions(v, rep, M) }));
-  const ok = classees.filter(x => !x.ecarts.length);
-  const presque = classees.filter(x => x.ecarts.length === 1);
-  const nbRep = Object.values(rep).filter(Boolean).length;
-  const el = document.getElementById('resultats');
-  let titre;
-  if (!nbRep) titre = `${VARIETES.length} variétés`;
-  else if (ok.length === 1) titre = 'Une seule variété correspond';
-  else if (ok.length) titre = `${ok.length} variétés correspondent`;
-  else titre = 'Aucune variété ne correspond à toutes les réponses';
-  const aideTxt = !nbRep ? 'Commencez par les questions faciles : sexe, blanc, uni, panaché.'
-    : ok.length ? 'Les réponses incertaines peuvent être laissées sur « Je ne sais pas ».'
-    : 'Vérifiez une réponse douteuse, ou regardez les variétés proches ci-dessous. Un croisement peut aussi donner une couleur hors liste.';
-  el.innerHTML = `<p class="compte">${titre}</p><p class="compte-aide">${aideTxt}</p>
-    <ul class="cartes">${ok.map(x => carte(x.v, [])).join('')}</ul>
-    ${nbRep && presque.length ? `<details class="presque"${ok.length ? '' : ' open'}>
-      <summary>${presque.length} variété${presque.length > 1 ? 's' : ''} à une réponse près</summary>
-      <ul class="cartes">${presque.map(x => carte(x.v, x.ecarts)).join('')}</ul></details>` : ''}`;
-}
-maj();
-</script>
+<script src="commun.js"></script>
+<script src="page-identifier.js"></script>
 </body>
 </html>

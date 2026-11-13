@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Identify an Indian Runner duck</title>
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="stylesheet" href="../style.css">
+<link rel="alternate" hreflang="fr" href="../identifier.html">
+<style>
+.ident { display: grid; grid-template-columns: minmax(0, 22rem) minmax(0, 1fr); gap: 2rem; align-items: start; }
+.questions { position: sticky; top: 1rem; max-height: calc(100vh - 2rem); overflow-y: auto; padding-right: .3rem; }
+fieldset { border: 0; border-top: 1px solid var(--trait); margin: 0; padding: .7rem 0 .8rem; }
+fieldset.inutile { opacity: .45; }
+legend { font-weight: 600; padding: 0; margin-bottom: .2rem; }
+.q-aide { font-size: .82rem; color: var(--encre-douce); margin: 0 0 .4rem; }
+.q-auto { font-size: .75rem; color: var(--encre-douce); font-weight: 400; }
+.choix-q { display: flex; flex-wrap: wrap; gap: .35rem; }
+.choix-q label { cursor: pointer; }
+.choix-q input { position: absolute; opacity: 0; pointer-events: none; }
+.choix-q span { display: inline-block; padding: .25rem .6rem; border: 1px solid var(--trait); border-radius: 999px; font-size: .88rem; background: var(--surface); }
+.choix-q input:checked + span { background: var(--miroir); border-color: var(--miroir); color: var(--surface); }
+.choix-q input:focus-visible + span { outline: 3px solid var(--bec); outline-offset: 2px; }
+.choix-q span.passe { color: var(--encre-douce); }
+.actions { display: flex; gap: .6rem; margin-top: .8rem; }
+button.btn { font: inherit; font-size: .9rem; color: var(--miroir); background: none; border: 1px solid var(--trait); border-radius: 4px; padding: .3rem .7rem; cursor: pointer; }
+.compte { font-family: var(--serif); font-size: 1.35rem; margin: 0 0 .2rem; color: var(--vert); }
+.compte-aide { color: var(--encre-douce); font-size: .9rem; margin: 0 0 1rem; }
+.cartes { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr)); gap: 1rem; }
+.carte { background: var(--surface); border: 1px solid var(--trait); border-radius: 6px; padding: .6rem; display: flex; flex-direction: column; gap: .35rem; }
+.carte .imgs { display: flex; gap: .3rem; justify-content: center; height: 200px; }
+.carte img { height: 100%; width: auto; max-width: 100%; object-fit: contain; object-position: center bottom; border-radius: 3px; }
+.carte .imgs.deux img { max-width: 50%; }
+.carte h3 { font-size: 1rem; margin: 0; }
+.carte .en, .carte .hom, .carte .ecart { font-size: .78rem; color: var(--encre-douce); }
+.carte .ecart { color: var(--bec); }
+.carte .liens { display: flex; gap: .4rem; flex-wrap: wrap; margin-top: auto; font-size: .82rem; }
+.carte .liens a { color: var(--miroir); }
+details.presque { margin-top: 1.8rem; }
+details.presque summary { cursor: pointer; color: var(--miroir); font-weight: 600; margin-bottom: .8rem; }
+details.presque .carte { opacity: .8; }
+@media (max-width: 760px) {
+  .ident { grid-template-columns: 1fr; }
+  .questions { position: static; max-height: none; overflow: visible; }
+  .carte .imgs { height: 160px; }
+}
+</style>
+</head>
+<body>
+<main>
+  <nav class="haut"><h1 class="titre"><a class="logo" href="index.html" title="Home: cross"><img src="../icone.png" alt="" width="48" height="48"></a>Identify an Indian Runner duck</h1><span><a href="index.html">Cross</a> · <a href="origines.html">Breed a variety</a> · <a href="aide.html">Understanding genetics</a> · <a href="../identifier.html" hreflang="fr" lang="fr" data-langue>Français</a></span></nav>
+  <p class="intro">Answer the questions you can, in any order: they are all optional. Each answer rules out the varieties that do not match. Ducklings and moulting youngsters look little like adults: preferably observe an adult bird.</p>
+
+  <div class="ident">
+    <form class="questions" id="questions" aria-label="Questions"></form>
+    <section aria-live="polite" id="resultats"></section>
+  </div>
+</main>
+
+<script src="../donnees.js"></script>
+<script src="../moteur.js"></script>
+<script src="../identification.js"></script>
+<script src="../traduction-en.js"></script>
+<script src="../commun.js"></script>
+<script src="../page-identifier.js"></script>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Understanding colour genetics — Indian Runner ducks</title>
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="stylesheet" href="../style.css">
+<link rel="alternate" hreflang="fr" href="../aide.html">
+</head>
+<body>
+<main class="aide-page">
+  <nav class="haut"><h1 class="titre"><a class="logo" href="index.html" title="Home: cross"><img src="../icone.png" alt="" width="48" height="48"></a>Understanding genetics</h1><span><a href="index.html">Cross</a> · <a href="identifier.html">Identify a duck</a> · <a href="origines.html">Breed a variety</a> · <a href="../aide.html" hreflang="fr" lang="fr" data-langue>Français</a></span></nav>
+  <p class="intro">What you need to know to read the calculator’s genotypes and predict the colours of the ducklings, without being a geneticist.</p>
+
+  <section>
+    <h2>Basic concepts</h2>
+    <dl>
+      <dt>Gene and locus</dt>
+      <dd>A gene controls a trait, for example “self-coloured or not”. Its position on the chromosome is called the locus. The calculator follows ten genes, written M, Li, E, Bl, C, B, R, D, Bu and Cr.</dd>
+      <dt>Allele</dt>
+      <dd>A version of a gene. The E gene exists in two versions: <code>E</code> (extended black, self-coloured) and <code>e<sup>+</sup></code> (not extended). The “+” always marks the version found in the wild duck.</dd>
+      <dt>Two copies of each gene</dt>
+      <dd>Every duck has two copies of each gene, one from the father and one from the mother, and passes one of them at random to each duckling. The two copies are written separated by a slash: <code>E/e<sup>+</sup></code>.</dd>
+      <dt>Homozygous, heterozygous</dt>
+      <dd>Two identical copies (<code>E/E</code>): homozygous, the duck always passes on the same one. Two different copies (<code>E/e<sup>+</sup></code>): heterozygous, it passes on one or the other, half the time each.</dd>
+      <dt>Dominant, recessive</dt>
+      <dd>A dominant allele shows as soon as it is present once: <code>E/e<sup>+</sup></code> is self-coloured. A recessive allele only shows in two copies: it takes <code>c/c</code> to make a white duck.</dd>
+      <dt>Incomplete dominance</dt>
+      <dd>One copy gives an intermediate result, two copies a stronger effect. Example: one dose of blue gives a blue duck, two doses an almost white splash.</dd>
+      <dt>Carrier (“split”)</dt>
+      <dd>A duck that has one copy of a recessive allele without showing it, like a mallard-coloured <code>C<sup>+</sup>/c</code>. It passes it on to half of its ducklings. This is where “surprises” at hatching come from.</dd>
+      <dt>Sex-linked</dt>
+      <dd>The D (brown) and Bu (buff) genes are on the Z chromosome. The drake has two Z, the duck only one (plus an empty W). A duck therefore has only one copy, written <code>d/–</code>: she always shows what she carries, and cannot be a hidden carrier.</dd>
+      <dt>Masking</dt>
+      <dd>Some genes hide the effect of others: white hides everything, extended black hides the mallard pattern. Hidden genes are still passed on.</dd>
+    </dl>
+  </section>
+
+  <section>
+    <h2>How the colour is built</h2>
+    <p>The calculator reads the genotype in this order. At each step, the first question answered “yes” wins over the following ones.</p>
+    <ol class="ordre">
+      <li><strong>White (C)?</strong> With <code>c/c</code>, the duck is white with an orange bill. Everything else is hidden.</li>
+      <li><strong>Extended black (E)?</strong> With at least one <code>E</code>, the duck is self-coloured (black at base). The mallard pattern (M and Li) is hidden.</li>
+      <li><strong>Otherwise, mallard pattern.</strong> M sets the pattern: mallard, dusky (no eye stripes) or restricted (Appleyard). Li sets the ground colour: dark phase, trout (lighter) or silver (almost white).</li>
+      <li><strong>Dilutions.</strong> Bl lightens to blue (one or two doses), d turns black into brown, bu into buff. They add up (table below).</li>
+      <li><strong>White markings.</strong> R adds the runner pied pattern, b/b a bib.</li>
+      <li><strong>Crest.</strong> Cr adds a pompom on the head, regardless of colour.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>The dilutions in one table</h2>
+    <div class="large">
+    <table>
+      <thead><tr><th></th><th>Self, no brown</th><th>Self, with brown (d)</th><th>Mallard pattern, no brown</th><th>Mallard pattern, with brown (d)</th></tr></thead>
+      <tbody>
+        <tr><th>No blue</th><td>Black</td><td>Chocolate</td><td>Mallard, trout…</td><td>Khaki, fawn…</td></tr>
+        <tr><th>One dose (Bl/bl<sup>+</sup>)</th><td>Blue</td><td>Lilac</td><td>Blue trout…</td><td>Lilac trout, blue dusky…</td></tr>
+        <tr><th>Two doses (Bl/Bl)</th><td>Splash</td><td>Lavender</td><td>Apricot trout…</td><td>Jaune pois, apricot dusky…</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p>The calculated colour name is descriptive: dilutions (blue, double-blue, brown, buff), then phase (trout, spotted, silver), then pattern (mallard, dusky). Variety names use the usual British or American name when there is one, and the French name otherwise (jaune pois). Names of blue + brown combinations on the mallard pattern vary between breeders and countries: the genotype is what counts.</p>
+  </section>
+
+  <section>
+    <h2>The ten genes</h2>
+    <div class="large"><table id="table-loci"></table></div>
+  </section>
+
+  <section>
+    <h2>Step-by-step examples</h2>
+
+    <div class="exemple">
+      <h3>Two blue ducks</h3>
+      <p>Each parent is <code>Bl/bl<sup>+</sup></code> and passes on Bl half the time.</p>
+      <p>Result: ¼ black (<code>bl<sup>+</sup>/bl<sup>+</sup></code>), ½ blue, ¼ splash (<code>Bl/Bl</code>).</p>
+      <p>Remember: blue does not breed true. For 100 % blues, mate a black with a splash.</p>
+    </div>
+
+    <div class="exemple">
+      <h3>Chocolate drake × black duck</h3>
+      <p>The father is <code>d/d</code>: he gives d to all his ducklings. The mother, <code>D<sup>+</sup>/–</code>, gives her Z (with D<sup>+</sup>) to her sons and her W (without a D gene) to her daughters.</p>
+      <p>Result: black sons carrying brown (<code>D<sup>+</sup>/d</code>), chocolate daughters (<code>d/–</code>).</p>
+      <p>Remember: with a sex-linked gene, the direction of the cross matters. The reverse cross (black drake × chocolate duck) gives only blacks, and the sons are carriers.</p>
+    </div>
+
+    <div class="exemple">
+      <h3>A black hiding its hand</h3>
+      <p>A black <code>E/e<sup>+</sup></code> mated to a silver (<code>e<sup>+</sup>/e<sup>+</sup></code>) passes on extended black half the time.</p>
+      <p>Result: half black, half not self-coloured. The colour of the non-self ducklings depends on the mallard pattern hidden under the parent’s black, which cannot be seen.</p>
+      <p>Remember: mating a duck with a dominant colour to a duck with recessive colours reveals what it hides.</p>
+    </div>
+
+    <div class="exemple">
+      <h3>Two mallards giving a white</h3>
+      <p>Both parents are <code>C<sup>+</sup>/c</code>: mallard-coloured, carrying white.</p>
+      <p>Result: ¼ white, ¾ mallard, two thirds of which are carriers.</p>
+    </div>
+
+    <div class="exemple">
+      <h3>Two crested birds</h3>
+      <p>Each parent is <code>Cr/cr<sup>+</sup></code>.</p>
+      <p>Result: ¼ <code>Cr/Cr</code> (deformities, often not viable), ½ crested, ¼ without crest. Always mate a crested bird with a non-crested one.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>All the calculator’s varieties</h2>
+    <div class="large"><table id="table-varietes"></table></div>
+  </section>
+
+  <section>
+    <h2>English – French vocabulary</h2>
+    <p>Useful for French sources and the French standard, which this site follows.</p>
+    <div class="large">
+    <table>
+      <tbody>
+        <tr><td>drake / duck / duckling</td><td>canard (mâle) / cane / caneton</td></tr>
+        <tr><td>mallard</td><td>sauvage (colvert)</td></tr>
+        <tr><td>dusky; dark dusky in dark phase, light dusky in light phase</td><td>sauvage foncé (motif md/md)</td></tr>
+        <tr><td>khaki, brown dark dusky</td><td>sauvage foncé brun</td></tr>
+        <tr><td>fawn, brown light dusky</td><td>sauvage foncé truité brun</td></tr>
+        <tr><td>restricted mallard (Appleyard)</td><td>sauvage restreint</td></tr>
+        <tr><td>dark phase / light phase (trout)</td><td>phase sombre / phase claire (truité)</td></tr>
+        <tr><td>harlequin, snowy, abacot, silver (UK)</td><td>argenté, arlequin (lih/lih)</td></tr>
+        <tr><td>spotted; light-harlequin phase</td><td>intermédiaire truité-argenté (li/lih)</td></tr>
+        <tr><td>brown trout, golden trout</td><td>truité brun</td></tr>
+        <tr><td>apricot trout</td><td>bleu-fauve truité</td></tr>
+        <tr><td>extended black, self-coloured</td><td>uni (noir étendu)</td></tr>
+        <tr><td>blue dilution / splash</td><td>dilution bleue / splash</td></tr>
+        <tr><td>brown dilution, chocolate</td><td>dilution brune, marron</td></tr>
+        <tr><td>buff (a different gene from splash)</td><td>chamois</td></tr>
+        <tr><td>lilac / lavender</td><td>lilas / lavande</td></tr>
+        <tr><td>runner pattern, pied; pied khaki</td><td>panaché ; panaché brun sauvage foncé</td></tr>
+        <tr><td>pencilling, calico patches (on a self)</td><td>crayonné, taches « calico » (sur un uni)</td></tr>
+        <tr><td>bib</td><td>bavette</td></tr>
+        <tr><td>crest</td><td>huppe</td></tr>
+        <tr><td>carrier, split</td><td>porteur</td></tr>
+        <tr><td>speculum</td><td>miroir de l’aile</td></tr>
+        <tr><td>eye stripes</td><td>traits sur la tête</td></tr>
+        <tr><td>standardised colour (in France)</td><td>couleur homologuée</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Sources</h2>
+    <p>Mike and Chris Ashton, <em>Colour Breeding in Domestic Ducks</em>; Indian Runner Duck Club (<a href="https://runnerduck.net/standard-colours.php">runnerduck.net</a>); <a href="https://www.plumesdepyrene.fr/le-coureur-indien/les-couleurs/">Plumes de Pyrène</a> (in French); <a href="https://domainelesbardons.jimdofree.com/le-coin-des-canards/un-peu-de-g%C3%A9n%C3%A9tique/">Domaine des Bardons</a> (in French); <a href="https://www.duskyfeatherswaterfowl.com/gene-index">Dusky Feathers Waterfowl</a> (dusky and intermediate combinations); calculator by <a href="https://www.kippenjungle.nl/kruisingEend.html">kippenjungle.nl</a>. When sources disagree, the variety is marked “to be confirmed” and the disagreement is explained.</p>
+  </section>
+</main>
+
+<script src="../donnees.js"></script>
+<script src="../moteur.js"></script>
+<script src="../traduction-en.js"></script>
+<script src="../commun.js"></script>
+<script src="../page-aide.js"></script>
+</body>
+</html>

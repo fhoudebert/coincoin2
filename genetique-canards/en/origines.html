@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Breed a variety — Indian Runner ducks</title>
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="stylesheet" href="../style.css">
+<link rel="alternate" hreflang="fr" href="../origines.html">
+<style>
+.reglages { display: flex; flex-wrap: wrap; gap: 1rem 2rem; align-items: flex-end; background: var(--surface); border: 1px solid var(--trait); border-radius: 6px; padding: 1rem; }
+.reglages .cible { display: flex; gap: 1rem; align-items: flex-end; flex: 1 1 22rem; min-width: 0; }
+.reglages .cible > div { flex: 1; min-width: 0; }
+.reglages select { width: 100%; }
+.reglages .photo { height: 150px; max-width: 90px; }
+.reglages fieldset { border: 0; margin: 0; padding: 0; }
+.reglages legend { font-size: .9rem; color: var(--encre-douce); margin-bottom: .25rem; }
+.choix-q { display: flex; flex-wrap: wrap; gap: .35rem; }
+.choix-q label { cursor: pointer; }
+.choix-q input { position: absolute; opacity: 0; pointer-events: none; }
+.choix-q span { display: inline-block; padding: .25rem .6rem; border: 1px solid var(--trait); border-radius: 999px; font-size: .88rem; background: var(--fond); }
+.choix-q input:checked + span { background: var(--miroir); border-color: var(--miroir); color: var(--surface); }
+.choix-q input:focus-visible + span { outline: 3px solid var(--bec); outline-offset: 2px; }
+label.case { font-size: .92rem; display: flex; gap: .4rem; align-items: center; cursor: pointer; }
+.resume { margin: 1.4rem 0 .6rem; }
+.resume p { margin: .2rem 0; color: var(--encre-douce); }
+.resume .compte { font-family: var(--serif); font-size: 1.3rem; color: var(--vert); }
+ol.couples { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
+.couple { background: var(--surface); border: 1px solid var(--trait); border-radius: 6px; padding: .8rem 1rem; }
+.couple-tete { display: grid; grid-template-columns: auto 1fr auto 1fr; gap: .6rem; align-items: center; }
+.couple-tete img, .couple-tete .vide { height: 96px; width: 48px; object-fit: contain; object-position: center bottom; border-radius: 3px; }
+.couple-tete .vide { display: grid; place-items: center; color: var(--trait); border: 1px dashed var(--trait); font-family: var(--serif); }
+.couple-tete .x { grid-column: 1 / -1; display: none; }
+.parent-nom { font-weight: 600; }
+.parent-nom small { display: block; font-weight: 400; color: var(--encre-douce); font-size: .8rem; }
+.probas { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: .4rem 1.2rem; margin-top: .7rem; }
+.proba .lib { font-size: .85rem; color: var(--encre-douce); }
+.proba .val { font-family: var(--serif); font-size: 1.25rem; font-variant-numeric: tabular-nums; }
+.proba .val small { font-family: var(--sans); font-size: .78rem; color: var(--encre-douce); margin-left: .3rem; }
+.proba .nul { color: var(--encre-douce); font-size: .9rem; }
+.barre { height: 5px; margin-top: .2rem; background: var(--trait); border-radius: 3px; overflow: hidden; }
+.barre i { display: block; height: 100%; background: var(--miroir); }
+.couple details { margin-top: .6rem; font-size: .88rem; }
+.couple summary { cursor: pointer; color: var(--miroir); }
+.couple table { margin-top: .4rem; }
+.couple .liens { margin-top: .5rem; font-size: .85rem; display: flex; gap: 1rem; flex-wrap: wrap; }
+.couple .liens a, .resume a { color: var(--miroir); }
+.etiquette { display: inline-block; font-size: .75rem; padding: .05rem .45rem; border-radius: 999px; border: 1px solid var(--vert); color: var(--vert); margin-left: .4rem; vertical-align: middle; }
+button.btn { font: inherit; font-size: .9rem; color: var(--miroir); background: none; border: 1px solid var(--trait); border-radius: 4px; padding: .35rem .8rem; cursor: pointer; margin-top: 1rem; }
+@media (max-width: 760px) {
+  .couple-tete { grid-template-columns: auto 1fr; }
+  .reglages .photo { height: 110px; }
+}
+</style>
+</head>
+<body>
+<main>
+  <nav class="haut"><h1 class="titre"><a class="logo" href="index.html" title="Home: cross"><img src="../icone.png" alt="" width="48" height="48"></a>Breed a variety</h1><span><a href="index.html">Cross</a> · <a href="identifier.html">Identify</a> · <a href="aide.html">Understanding genetics</a> · <a href="../origines.html" hreflang="fr" lang="fr" data-langue>Français</a></span></nav>
+  <p class="intro">Choose the colour you want to breed: the page searches all the varieties in the list for the drake × duck pairs that give it, from the most certain to the least. Parents are assumed to be pure-bred, with the typical genotype of their variety; a parent carrying hidden genes may give other results.</p>
+
+  <form class="reglages" id="reglages">
+    <div class="cible">
+      <div id="photo-cible"></div>
+      <div>
+        <label class="choix" for="cible">Variety to breed</label>
+        <select id="cible"></select>
+        <div class="geno" id="geno-cible"></div>
+      </div>
+    </div>
+    <fieldset>
+      <legend>In</legend>
+      <div class="choix-q">
+        <label><input type="radio" name="sexe" value="MF" checked><span>Sons and daughters</span></label>
+        <label><input type="radio" name="sexe" value="F"><span>Daughters</span></label>
+        <label><input type="radio" name="sexe" value="M"><span>Sons</span></label>
+      </div>
+    </fieldset>
+    <label class="case"><input type="checkbox" id="homologues"> French standard colours only as parents</label>
+  </form>
+
+  <section class="resume" id="resume" aria-live="polite"></section>
+  <ol class="couples" id="couples"></ol>
+  <button type="button" class="btn" id="plus" hidden>Show more pairs</button>
+</main>
+
+<script src="../donnees.js"></script>
+<script src="../moteur.js"></script>
+<script src="../traduction-en.js"></script>
+<script src="../commun.js"></script>
+<script src="../page-origines.js"></script>
+</body>
+</html>

@@ -7,10 +7,11 @@
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="stylesheet" href="style.css">
+<link rel="alternate" hreflang="en" href="en/aide.html">
 </head>
 <body>
 <main class="aide-page">
-  <nav class="haut"><h1 class="titre"><a class="logo" href="index.html" title="Accueil : croiser"><img src="icone.png" alt="" width="48" height="48"></a>Comprendre la génétique</h1><span><a href="index.html">Croiser</a> · <a href="identifier.html">Identifier un canard</a> · <a href="origines.html">Obtenir une variété</a></span></nav>
+  <nav class="haut"><h1 class="titre"><a class="logo" href="index.html" title="Accueil : croiser"><img src="icone.png" alt="" width="48" height="48"></a>Comprendre la génétique</h1><span><a href="index.html">Croiser</a> · <a href="identifier.html">Identifier un canard</a> · <a href="origines.html">Obtenir une variété</a> · <a href="en/aide.html" hreflang="en" lang="en" data-langue>English</a></span></nav>
   <p class="intro">Ce qu’il faut savoir pour lire les génotypes du calculateur et prévoir les couleurs des canetons, sans être généticien.</p>
 
   <section>
@@ -148,42 +149,14 @@
   <section>
     <h2>Sources</h2>
     <p>Mike et Chris Ashton, <em>Colour Breeding in Domestic Ducks</em> ; Indian Runner Duck Club (<a href="https://runnerduck.net/standard-colours.php">runnerduck.net</a>) ; <a href="https://www.plumesdepyrene.fr/le-coureur-indien/les-couleurs/">Plumes de Pyrène</a> ; <a href="https://domainelesbardons.jimdofree.com/le-coin-des-canards/un-peu-de-g%C3%A9n%C3%A9tique/">Domaine des Bardons</a> ; <a href="https://www.duskyfeatherswaterfowl.com/gene-index">Dusky Feathers Waterfowl</a> (combinaisons dusky et intermédiaires) ; calculateur de <a href="https://www.kippenjungle.nl/kruisingEend.html">kippenjungle.nl</a>. Quand les sources divergent, la variété est marquée « à confirmer » et la divergence est expliquée.</p>
+<h2>Remerciements</h2>
+    <p>Merci à <a href="https://www.plumesdepyrene.fr/le-coureur-indien/les-couleurs/">Plumes de Pyrène</a> de nous avoir accordé le droit d‘utiliser leurs photos comme illustration, le filigrane reste pour l'attribution</p>
   </section>
 </main>
 
 <script src="donnees.js"></script>
 <script src="moteur.js"></script>
-<script>
-'use strict';
-const M = window.MOTEUR_CANARD;
-const { LOCI, VARIETES } = window.DONNEES_CANARD;
-function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
-function fmtAllele(a) {
-  if (a.endsWith('+')) return a.slice(0, -1) + '<sup>+</sup>';
-  if (a === 'MR') return 'M<sup>R</sup>';
-  if (a === 'md') return 'm<sup>d</sup>';
-  if (a === 'lih') return 'li<sup>h</sup>';
-  return a;
-}
-function fmtGeno(g) {
-  const p = LOCI.filter(l => !g[l.id].every(a => a.endsWith('+')))
-    .map(l => g[l.id].length === 1 ? fmtAllele(g[l.id][0]) + '/–' : g[l.id].map(fmtAllele).join('/'));
-  return p.length ? p.join(', ') : 'tout sauvage';
-}
-
-document.getElementById('table-loci').innerHTML =
-  '<thead><tr><th>Gène</th><th>Allèles (du plus fort au plus faible)</th><th>Effet</th></tr></thead><tbody>' +
-  LOCI.map(l => `<tr><td>${esc(l.nom)} (${l.id})${l.z ? '<br><span class="note">lié au sexe</span>' : ''}${l.incomplet ? '<br><span class="note">dominance incomplète</span>' : ''}</td>
-    <td>${l.alleles.map(fmtAllele).join(' &gt; ')}</td><td>${esc(l.aide)}</td></tr>`).join('') + '</tbody>';
-
-document.getElementById('table-varietes').innerHTML =
-  '<thead><tr><th>Variété</th><th>Anglais</th><th>Génotype (mâle / cane)</th><th>Remarque</th></tr></thead><tbody>' +
-  VARIETES.map(v => {
-    const gm = M.lireGeno(v.geno, 'M'), gf = M.lireGeno(v.geno, 'F');
-    const gtxt = fmtGeno(gm) === fmtGeno(gf) ? fmtGeno(gm) : fmtGeno(gm) + '<br>' + fmtGeno(gf);
-    const rem = [v.homologuee ? 'Homologuée en France.' : '', v.statut === 'verifier' ? 'À confirmer.' : '', v.note || ''].filter(Boolean).join(' ');
-    return `<tr><td>${esc(v.nom)}</td><td>${esc(v.en || '')}</td><td>${gtxt}</td><td>${esc(rem)}</td></tr>`;
-  }).join('') + '</tbody>';
-</script>
+<script src="commun.js"></script>
+<script src="page-aide.js"></script>
 </body>
 </html>

@@ -146,5 +146,45 @@ verifie('fraction 3/16', M.fraction(0.1875) === '3/16');
   verifie('locus lié au sexe : filles d/–', dl.length === 1 && dl[0].paire.join() === 'd', dl);
 }
 
+// 15. Version anglaise (en/) : traductions complètes, noms calculés uniques.
+// En dernier : appliquer() remplace les textes français des données.
+{
+  const T = require('./traduction-en.js');
+  const I = require('./identification.js');
+  for (const l of D.LOCI) verifie('locus traduit ' + l.id, !!(T.LOCI[l.id] && T.LOCI[l.id].nom && T.LOCI[l.id].aide));
+  for (const v of D.VARIETES) {
+    verifie('variété traduite ' + v.id, !!(T.VARIETES[v.id] && T.VARIETES[v.id].nom));
+    if (v.note) verifie('note traduite ' + v.id, !!(T.VARIETES[v.id] && T.VARIETES[v.id].note));
+  }
+  for (const q of I.QUESTIONS) {
+    const t = T.QUESTIONS[q.id];
+    verifie('question traduite ' + q.id, !!(t && t.texte && (!q.aide || t.aide)));
+    for (const [val] of q.options) verifie('option traduite ' + q.id + '=' + val, !!(t && t.options && t.options[val]));
+  }
+  const nomsEn = new Set(D.VARIETES.map(v => T.VARIETES[v.id] && T.VARIETES[v.id].nom));
+  verifie('noms anglais de variété distincts', nomsEn.size === D.VARIETES.length);
+
+  T.appliquer(D, I, M);
+  for (const sexe of ['M', 'F']) {
+    const vus = new Map();
+    for (const v of D.VARIETES) {
+      const g = M.lireGeno(v.geno, sexe);
+      const n = M.phenotype(g, sexe).nom;
+      verifie('anglais : phénotype unique ' + v.id + ' / ' + vus.get(n), !vus.has(n), n);
+      vus.set(n, v.id);
+      verifie('anglais : auto-reconnaissance ' + v.id + ' ' + sexe, M.varieteDe(g, sexe) === v);
+      verifie('anglais : explications sans français ' + v.id,
+              !/[éèàùç]/.test(M.expliquer(g, sexe).map(x => x.texte).join(' ')));
+    }
+  }
+  const filles = parNom(M.resultat(geno('marron', 'M'), geno('noir', 'F'), 'F'));
+  verifie('anglais : chocolat x noir, filles Chocolate', proche(filles['Chocolate'], 1), filles);
+  const jp = parNom(M.resultat(geno('jaune-pois', 'M'), geno('bleu-fauve-truite', 'F'), 'F'));
+  verifie('anglais : filles jaune pois', proche(jp['Double-blue brown trout mallard'], 1), jp);
+  verifie('anglais : nom français conservé', D.VARIETES.find(v => v.id === 'noir').nomFr === 'Noir uni');
+  M.choisirLangue('fr');
+  verifie('retour au français', M.phenotype(geno('marron', 'M'), 'M').nom === 'Marron (chocolat)');
+}
+
 console.log(ok + ' tests réussis, ' + ko + ' échec(s).');
 process.exit(ko ? 1 : 0);

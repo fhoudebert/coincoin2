@@ -20,12 +20,17 @@ Ouvrir `index.html` dans un navigateur : tout fonctionne en local, sans serveur 
 - `aide.html` : page « Comprendre la génétique » pour débutants (notions, ordre de lecture, exemples, vocabulaire anglais).
 - `genetique.png` : icône d'origine (1254 px) ; `icone.png` (en-tête des pages, 96 px,
   coins transparents), `favicon-32.png` et `apple-touch-icon.png` en sont tirées.
-- `style.css` : styles communs aux deux pages.
+- `style.css` : styles communs à toutes les pages.
+- `commun.js` : langue de la page, mise en forme des génotypes et pourcentages.
+- `page-calculateur.js`, `page-identifier.js`, `page-origines.js`, `page-aide.js` :
+  scripts des quatre pages, communs aux versions française et anglaise.
 - `donnees.js` : loci, allèles (du plus dominant au plus récessif) et variétés de référence.
   C'est le seul fichier à modifier pour corriger un génotype ou ajouter une variété.
 - `moteur.js` : croisements (autosomes et chromosome Z) et traduction génotype → couleur.
 - `tests.js` : vérifications du moteur, à lancer avec `node tests.js` après chaque modification.
 - `img/` : photos, une par sexe et par variété.
+- `en/` : version anglaise des quatre pages (mêmes noms de fichiers).
+- `traduction-en.js` : textes anglais des loci, variétés et questions d'identification.
 - `outils/normaliser_images.py` : met une photo au format du calculateur (voir plus bas).
 - `outils/photos_a_faire.py` : crée et liste les images « Photo à faire ».
 
@@ -34,6 +39,28 @@ Les variétés sont classées en deux groupes : les 10 couleurs homologuées en 
 blanc, panaché brun sauvage foncé) et les autres couleurs. Les noms de couleur calculés
 suivent le vocabulaire français ; les équivalents anglais (IRDC) sont donnés entre
 parenthèses dans les noms de variété.
+
+## Version anglaise
+
+Les pages anglaises sont dans `en/` et portent les mêmes noms que les pages
+françaises ; chaque page a un lien vers l'autre langue (« English » / « Français »)
+qui garde la variété ou le couple affiché. Elles utilisent les mêmes scripts,
+données et images que les pages françaises, chargés depuis le dossier parent :
+seuls les textes changent.
+
+- Textes fixes des pages : directement dans `en/*.html`.
+- Textes générés par les scripts : `tr('texte français', 'English text')` dans
+  `page-*.js` ; la langue vient de `<html lang="...">`.
+- Noms de couleur calculés et explications « Pourquoi cette couleur ? » :
+  `moteur.js` (`choisirLangue('en')`). En anglais, le nom calculé met les
+  dilutions, puis la phase, puis le motif : « Blue brown trout dusky ».
+- Noms de variétés, notes, loci et questions : `traduction-en.js`. Les pages
+  anglaises affichent le nom d'usage anglais, et le nom français à côté.
+
+Une variété, un locus ou une question ajouté en français doit recevoir son texte
+anglais dans `traduction-en.js` : `node tests.js` le signale sinon. Les génotypes,
+photos et critères d'identification restent réglés une seule fois, dans `donnees.js`
+et `identification.js`. Les images « Photo à faire » gardent leur texte français.
 
 ## Images
 
@@ -132,10 +159,7 @@ est plus large que haut. Une photo debout, de profil, serait préférable.
 
 ### Où chercher les images manquantes
 
-Droits : le site de l'Indian Runner Duck Club (runnerduck.net) est « tous droits
-réservés », et Plumes de Pyrène interdit toute copie, même partielle, de ses textes et
-photos. Leurs photos ne doivent donc pas être copiées dans ce projet : elles servent de
-référence pour reconnaître les couleurs. 
+Droits : Merci à 'Plumes de Pyrène' de nous avoir accorder les droits pour utiliser les images de son site
 
 | Manque | Piste |
 |---|---|

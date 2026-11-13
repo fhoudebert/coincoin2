@@ -7,6 +7,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="stylesheet" href="style.css">
+<link rel="alternate" hreflang="en" href="en/origines.html">
 <style>
 .reglages { display: flex; flex-wrap: wrap; gap: 1rem 2rem; align-items: flex-end; background: var(--surface); border: 1px solid var(--trait); border-radius: 6px; padding: 1rem; }
 .reglages .cible { display: flex; gap: 1rem; align-items: flex-end; flex: 1 1 22rem; min-width: 0; }
@@ -55,7 +56,7 @@ button.btn { font: inherit; font-size: .9rem; color: var(--miroir); background: 
 </head>
 <body>
 <main>
-  <nav class="haut"><h1 class="titre"><a class="logo" href="index.html" title="Accueil : croiser"><img src="icone.png" alt="" width="48" height="48"></a>Obtenir une variété</h1><span><a href="index.html">Croiser</a> · <a href="identifier.html">Identifier</a> · <a href="aide.html">Comprendre la génétique</a></span></nav>
+  <nav class="haut"><h1 class="titre"><a class="logo" href="index.html" title="Accueil : croiser"><img src="icone.png" alt="" width="48" height="48"></a>Obtenir une variété</h1><span><a href="index.html">Croiser</a> · <a href="identifier.html">Identifier</a> · <a href="aide.html">Comprendre la génétique</a> · <a href="en/origines.html" hreflang="en" lang="en" data-langue>English</a></span></nav>
   <p class="intro">Choisissez la couleur que vous voulez obtenir : la page cherche, parmi toutes les variétés de la liste, les couples mâle × cane qui la donnent, du plus sûr au moins sûr. Les parents sont supposés de race pure, avec le génotype type de leur variété ; un parent porteur de gènes cachés peut donner d’autres résultats.</p>
 
   <form class="reglages" id="reglages">
@@ -85,140 +86,7 @@ button.btn { font: inherit; font-size: .9rem; color: var(--miroir); background: 
 
 <script src="donnees.js"></script>
 <script src="moteur.js"></script>
-<script>
-'use strict';
-const M = window.MOTEUR_CANARD;
-const { LOCI, VARIETES } = window.DONNEES_CANARD;
-const PAS = 12;
-let limite = PAS;
-let resultats = [];
-
-function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
-function fmtAllele(a) {
-  if (a.endsWith('+')) return a.slice(0, -1) + '<sup>+</sup>';
-  if (a === 'MR') return 'M<sup>R</sup>';
-  if (a === 'md') return 'm<sup>d</sup>';
-  if (a === 'lih') return 'li<sup>h</sup>';
-  return a;
-}
-function fmtPaire(p) { return p.length === 1 ? fmtAllele(p[0]) + '/–' : p.map(fmtAllele).join('/'); }
-function fmtGeno(g) {
-  const p = LOCI.filter(l => !g[l.id].every(a => a.endsWith('+'))).map(l => fmtPaire(g[l.id]));
-  return p.length ? p.join(', ') : 'tout sauvage';
-}
-function fmtPct(p) {
-  const v = p * 100;
-  return (Number.isInteger(v) ? v : v.toFixed(v < 1 ? 2 : 1).replace('.', ',')) + ' %';
-}
-function img(v, sexe) {
-  const src = v.img[sexe] || v.img[sexe === 'M' ? 'F' : 'M'];
-  return src ? `<img src="img/${esc(src)}" alt="${esc(v.nom)}, ${sexe === 'M' ? 'mâle' : 'cane'}" loading="lazy">`
-             : '<span class="vide" aria-hidden="true">?</span>';
-}
-
-/* ---------- réglages ---------- */
-const sel = document.getElementById('cible');
-const opt = v => `<option value="${v.id}">${esc(v.nom)}</option>`;
-sel.innerHTML = `<optgroup label="Homologuées en France">${VARIETES.filter(v => v.homologuee).map(opt).join('')}</optgroup>`
-  + `<optgroup label="Autres couleurs">${VARIETES.filter(v => !v.homologuee).map(opt).join('')}</optgroup>`;
-try {
-  const v = new URLSearchParams(location.search).get('v');
-  if (VARIETES.some(x => x.id === v)) sel.value = v;
-} catch (e) { /* ignoré */ }
-
-document.getElementById('reglages').addEventListener('change', () => { limite = PAS; calculer(); });
-document.getElementById('plus').addEventListener('click', () => { limite += PAS; afficher(); });
-
-function sexesChoisis() {
-  const v = document.querySelector('input[name="sexe"]:checked').value;
-  return v === 'MF' ? ['M', 'F'] : [v];
-}
-
-/* ---------- détail d'un couple ---------- */
-// Pour chaque gène utile : génotypes des parents et répartition chez les jeunes.
-function detail(r, sexes, cibleGeno) {
-  const gp = M.lireGeno(r.pere.geno, 'M'), gm = M.lireGeno(r.mere.geno, 'F');
-  const lignes = [];
-  for (const l of LOCI) {
-    const utile = [gp, gm, cibleGeno.M, cibleGeno.F].some(g => !g[l.id].every(a => a.endsWith('+')));
-    if (!utile) continue;
-    const jeunes = sexes.map(s => {
-      const d = M.distribLocusId(l.id, gp, gm, s).sort((a, b) => b.p - a.p);
-      const t = d.map(x => `${fmtPaire(x.paire)} ${fmtPct(x.p)}`).join(', ');
-      return (sexes.length > 1 ? (s === 'M' ? 'fils : ' : 'filles : ') : '') + t;
-    }).join('<br>');
-    lignes.push(`<tr><td>${esc(l.nom)} (${l.id})</td><td>${fmtPaire(gp[l.id])}</td><td>${fmtPaire(gm[l.id])}</td><td>${jeunes}</td></tr>`);
-  }
-  return `<table><thead><tr><th>Gène</th><th>Mâle</th><th>Cane</th><th>Jeunes</th></tr></thead><tbody>${lignes.join('')}</tbody></table>`;
-}
-
-// Autres couleurs obtenues avec ce couple.
-function autres(r, sexes, nomCible) {
-  const gp = M.lireGeno(r.pere.geno, 'M'), gm = M.lireGeno(r.mere.geno, 'F');
-  return sexes.map(s => {
-    const res = M.resultat(gp, gm, s).filter(g => g.phenotype.nom !== nomCible[s]);
-    if (!res.length) return '';
-    const t = res.slice(0, 4).map(g => `${esc(g.variete ? g.variete.nom : g.phenotype.nom)} ${fmtPct(g.p)}`).join(' ; ');
-    return `<p>${sexes.length > 1 ? (s === 'M' ? 'Fils : ' : 'Filles : ') : ''}${t}${res.length > 4 ? ' ; …' : ''}</p>`;
-  }).join('');
-}
-
-/* ---------- calcul et affichage ---------- */
-let contexte = null;
-function calculer() {
-  const cible = VARIETES.find(v => v.id === sel.value);
-  const sexes = sexesChoisis();
-  const homol = document.getElementById('homologues').checked;
-  const parents = homol ? VARIETES.filter(v => v.homologuee) : VARIETES;
-  const cibleGeno = { M: M.lireGeno(cible.geno, 'M'), F: M.lireGeno(cible.geno, 'F') };
-  const nomCible = { M: M.phenotype(cibleGeno.M, 'M').nom, F: M.phenotype(cibleGeno.F, 'F').nom };
-  resultats = M.chercherCroisements(cible, parents, sexes);
-  contexte = { cible, sexes, cibleGeno, nomCible, homol };
-  document.getElementById('photo-cible').innerHTML = (() => {
-    const src = cible.img[sexes[sexes.length - 1]] || cible.img.M || cible.img.F;
-    return src ? `<img class="photo" src="img/${esc(src)}" alt="${esc(cible.nom)}">` : '<div class="photo photo-vide" aria-hidden="true">?</div>';
-  })();
-  document.getElementById('geno-cible').innerHTML = fmtGeno(cibleGeno.M) +
-    (fmtGeno(cibleGeno.M) !== fmtGeno(cibleGeno.F) ? ' (mâle) ; ' + fmtGeno(cibleGeno.F) + ' (cane)' : '');
-  try { history.replaceState(null, '', '?v=' + encodeURIComponent(cible.id)); } catch (e) { /* ignoré */ }
-  afficher();
-}
-
-function afficher() {
-  const { cible, sexes, cibleGeno, nomCible, homol } = contexte;
-  const surs = resultats.filter(r => r.score > 1 - 1e-9).length;
-  const sur = sexes.length > 1 ? 'chez tous les jeunes' : sexes[0] === 'M' ? 'chez tous les fils' : 'chez toutes les filles';
-  document.getElementById('resume').innerHTML = resultats.length
-    ? `<p class="compte">${resultats.length} couple${resultats.length > 1 ? 's' : ''} donne${resultats.length > 1 ? 'nt' : ''} « ${esc(cible.nom)} »</p>
-       <p>${surs ? `${surs} donne${surs > 1 ? 'nt' : ''} cette couleur ${sur}.` : `Aucun couple ne la donne ${sur} : elle s’obtient seulement en partie.`}</p>`
-    : `<p class="compte">Aucun couple de la liste ne donne « ${esc(cible.nom)} » en une génération</p>
-       <p>${homol ? 'Essayez sans la restriction aux couleurs homologuées, ou passez' : 'Il faut passer'} par une génération intermédiaire : croisez d’abord pour obtenir des jeunes porteurs, puis croisez ces jeunes entre eux (le <a href="index.html">calculateur</a> permet de le faire avec « Prendre comme mâle / cane »).</p>`;
-  const html = resultats.slice(0, limite).map(r => {
-    const probas = ['M', 'F'].filter(s => sexes.includes(s)).map(s => {
-      const p = r.p[s];
-      return `<div class="proba"><div class="lib">${s === 'M' ? 'Fils' : 'Filles'} « ${esc(cible.nom)} »</div>
-        ${p > 0 ? `<div class="val">${fmtPct(p)}<small>${M.fraction(p)}</small></div><div class="barre"><i style="width:${(p * 100).toFixed(1)}%"></i></div>`
-                : '<div class="nul">aucun</div>'}</div>`;
-    }).join('');
-    const memes = r.pere === r.mere && r.score > 1 - 1e-9 ? '<span class="etiquette">se reproduit fidèlement</span>' : '';
-    return `<li class="couple">
-      <div class="couple-tete">
-        ${img(r.pere, 'M')}<div class="parent-nom">${esc(r.pere.nom)}<small>mâle${r.pere.homologuee ? ' · homologuée' : ''}</small></div>
-        ${img(r.mere, 'F')}<div class="parent-nom">${esc(r.mere.nom)}<small>cane${r.mere.homologuee ? ' · homologuée' : ''}</small>${memes}</div>
-      </div>
-      <div class="probas">${probas}</div>
-      <details><summary>Ce que donne ce couple, gène par gène</summary>
-        ${detail(r, sexes, cibleGeno)}
-        <p><strong>Autres couleurs obtenues :</strong></p>${autres(r, sexes, nomCible) || '<p>aucune</p>'}
-      </details>
-      <div class="liens"><a href="index.html?M=${encodeURIComponent(r.pere.id)}&amp;F=${encodeURIComponent(r.mere.id)}">Ouvrir ce couple au calculateur</a></div>
-    </li>`;
-  }).join('');
-  document.getElementById('couples').innerHTML = html;
-  document.getElementById('plus').hidden = resultats.length <= limite;
-}
-
-calculer();
-</script>
+<script src="commun.js"></script>
+<script src="page-origines.js"></script>
 </body>
 </html>
